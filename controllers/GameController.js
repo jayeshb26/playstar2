@@ -1,6 +1,6 @@
 const GameDetails = require('../models/GameDetails');
 const Games = require('../models/Game');
-
+process.env.TZ='Asia/Kolkata' ;
 const GameController = {
     getGameList: async (req, res) => {
         try {
@@ -57,7 +57,7 @@ const GameController = {
                     GameTypeID: gameDetails.GameTypeID,
                     TimeSpan: gameDetails.TimeSpan,
                     GameName: gameDetails.GameName,
-                    CurrentTime: new Date().toISOString(), 
+                    CurrentTime:gameDetails.CurrentTime, 
                     DrawTime: gameDetails.DrawTime,
                     GameID: gameDetails.GameID,
                     OldResultList: gameDetails.OldResultList,
@@ -80,7 +80,7 @@ const GameController = {
                     GameTypeID: gameDetails.GameTypeID,
                     TimeSpan: gameDetails.TimeSpan,
                     GameName: gameDetails.GameName,
-                    CurrentTime: new Date().toISOString(), 
+                    CurrentTime: gameDetails.CurrentTime, 
                     DrawTime: gameDetails.DrawTime,
                     GameID: gameDetails.GameID,
                     OldResultList: gameDetails.OldResultList,

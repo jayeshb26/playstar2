@@ -32,7 +32,7 @@ const cors = require("cors");
 const { options } = require("./routes/auth");
 const app = express();
 
-
+process.env.TZ = "Asia/Calcutta";
 //Use for Socket.io
 const server = http.createServer(app);
 const io = socketio(server);

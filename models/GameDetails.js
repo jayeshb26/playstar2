@@ -5,6 +5,7 @@ const gameDetailsSchema = new mongoose.Schema({
   GameTypeID: Number,
   TimeSpan: Number,
   GameName: String,
+  CurrentTime:String,
   DrawTime: String,
   GameID: Number,
   OldResultList: [
