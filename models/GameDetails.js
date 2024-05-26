@@ -8,13 +8,17 @@ const gameDetailsSchema = new mongoose.Schema({
   CurrentTime:String,
   DrawTime: String,
   GameID: Number,
-  OldResultList: [
-    {
-      Result: String,
-      DrawTime: String,
-      Multiply: String
-    }
-  ]
+  status: {
+    type: String,
+    default: "0",
+  }
+  // OldResultList: [
+  //   {
+  //     Result: String,
+  //     DrawTime: String,
+  //     Multiply: String
+  //   }
+  // ]
 });
 
 

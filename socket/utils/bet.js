@@ -1,5 +1,6 @@
 const User = require("../../models/User");
 const Bet = require("../../models/Bet");
+const gameDetail = require("../../models/GameDetails");
 const WinResult = require("../../models/WinResult");
 const Winning = require("../../models/Winning");
 const Admin = require("../../models/Admin");
@@ -199,6 +200,41 @@ async function getCurrentBetData(retailerId) {
   let data = await Bet.find({ winPosition: "", retailerId });
   return data;
 }
+async function updateGameDetail(ddater) {
+console.log("Update Game Detail",ddater._id.toString());
+
+await gameDetail.findByIdAndUpdate(ddater._id , {$set: ddater},  function(err,doc) {
+  if (err) { throw err; }
+  else { console.log("Updated"); }
+});  
+}
+async function getGameDetail(id) {
+  try {
+    let data = await gameDetail.find({ GameTypeID:id,status:"0" });
+    data=data[0]._doc;
+  console.log(data);
+     return data;
+  } catch (error) {
+    console.log("Error on getGameDetail", error.message);
+    return error.message;  
+  }
+   //.lean().exec(function (err, docs) { return docs;});
+  // data.GameID=data.GameID+1;
+  // da
+//   console.log(data);
+//   data=data[0]._doc;
+//   console.log(data);
+//   console.log(data.GameTypeID);
+
+//   console.log(data.map((r) => r.toObject()));
+//  // /);
+// //console.log(data.GameID);
+// //let bet = await gameDetail.create(data);
+// //console.log(bet);
+
+//   return data.map((r) => r.toObject());
+
+}
 
 module.exports = {
   placeBet,
@@ -208,5 +244,7 @@ module.exports = {
   getLastrecord,
   getCurrentBetData,
   getAdminData,
-  updatebalnce
+  updatebalnce,
+  getGameDetail,
+  updateGameDetail
 };

@@ -1,5 +1,6 @@
 const GameDetails = require('../models/GameDetails');
 const Games = require('../models/Game');
+//const Gametime = require('../socket/index');
 process.env.TZ='Asia/Kolkata' ;
 const GameController = {
     getGameList: async (req, res) => {
@@ -58,7 +59,7 @@ const GameController = {
                 const response = {
                     GameTypeID: gameDetails.GameTypeID,
                     TimeSpan: gameDetails.TimeSpan,
-                    GameName: "ff"+gameDetails.GameName,
+                    GameName: gameDetails.GameName,
                     CurrentTime: d1.toISOString(), 
                     DrawTime: gameDetails.DrawTime,
                     GameID: gameDetails.GameID,
@@ -105,6 +106,7 @@ const GameController = {
             res.status(500).json({ message: 'Internal server error' });
         }
     }
+    
 };
 
 module.exports = GameController;
