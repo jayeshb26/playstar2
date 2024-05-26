@@ -1,10 +1,10 @@
-const Result = require("../models/WinResult");
+const Result = require("../models/results");
 const jwt = require("jsonwebtoken");
 
 const ResultController = {
   getResult: async (req, res) => {
     try {
-      const result = await Result.findOne({ GameID: req.body.GameID });
+      const result = await Result.findOne({  });
 
       if (!result) {
         return res.status(404).json({ message: "Result not found" });

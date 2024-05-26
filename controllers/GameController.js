@@ -52,12 +52,14 @@ const GameController = {
                 if (!gameDetails) {
                     return res.status(404).json({ message: 'Game details not found' });
                 }
-                
+                let d1=new Date();
+                d1.setHours(d1.getHours() + 5);
+                d1.setMinutes(d1.getMinutes() + 30);
                 const response = {
                     GameTypeID: gameDetails.GameTypeID,
                     TimeSpan: gameDetails.TimeSpan,
-                    GameName: gameDetails.GameName,
-                    CurrentTime:gameDetails.CurrentTime, 
+                    GameName: "ff"+gameDetails.GameName,
+                    CurrentTime: d1.toISOString(), 
                     DrawTime: gameDetails.DrawTime,
                     GameID: gameDetails.GameID,
                     OldResultList: gameDetails.OldResultList,
@@ -75,16 +77,18 @@ const GameController = {
                 if (!gameDetails) {
                     return res.status(404).json({ message: 'Game details not found' });
                 }
-                
+                let d1=new Date();
+                d1.setHours(d1.getHours() + 5);
+                d1.setMinutes(d1.getMinutes() + 30);
                 const response = {
                     GameTypeID: gameDetails.GameTypeID,
                     TimeSpan: gameDetails.TimeSpan,
                     GameName: gameDetails.GameName,
-                    CurrentTime: gameDetails.CurrentTime, 
+                    CurrentTime: d1.toISOString(), 
                     DrawTime: gameDetails.DrawTime,
                     GameID: gameDetails.GameID,
                     OldResultList: gameDetails.OldResultList,
-                    Message: 'Game details received.',
+                    Message: 'hh Game details received.',
                     Status: true,
                     ID: 0
                 };
