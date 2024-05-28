@@ -277,7 +277,7 @@ setInterval(async () => {
 //   if (new Date().getTime() / 1000 > games.playSmart.startTime + 95) {
 //  //   await getResult(11, "playSmart");
 //   }
-  if (new Date().getTime() / 1000 > games.hourse.startTime + 299) {
+  if (new Date().getTime() / 1000 > games.hourse.startTime + 290) {
     console.log("gAME TIME:" ,games.hourse.startTime);
     await getResult1(9, "playToWin");
   }
@@ -303,7 +303,7 @@ getResult1 = async(a,blur)=>{
       //ddate=ddate.add(5,'h');
       //ddate=ddate.add(30,'m');
       var ctime=gamed.DrawTime;
-    ddate= ddate.add(gamed.TimeSpan*2, 's').format("YYYY-MM-DD H:mm:ss ");
+    ddate= ddate.add(gamed.TimeSpan, 's').format("YYYY-MM-DD H:mm:ss ");
      console.log("game detail2",ddate);
      gamed.DrawTime=ddate;
      console.log("game detail3",gamed);
