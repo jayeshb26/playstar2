@@ -12,7 +12,7 @@ const GameController = {
             let gameDetails;
             if (GameID === 0) {
               // Display all games
-              gameDetails = await Games.find({});
+              gameDetails = await Games.find({}).select({_id:0});
             } else {
               // Retrieve details for the selected gameID
               gameDetails = await Games.findOne({ GameID: GameID });
