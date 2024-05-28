@@ -51,7 +51,10 @@ const GameController = {
             //let balance = userDetails.Balance;
             const  LeaveFootprint  = req.query.LeaveFootprint;
             const gameId = req.body.GameID;
-            let gameDetails = await GameDetails.findOne({"GameTypeID":gameId});
+            if(req.body.GameTypeID!=18){
+                req.body.GameTypeID=18  
+            }
+            let gameDetails = await GameDetails.findOne({"GameTypeID":req.body.GameTypeID});
           // console.log( gameDetails.GameName);
           if (!gameDetails) {
             return res.status(404).json({ message: 'Game details not found' });
