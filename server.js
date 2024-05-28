@@ -14,7 +14,7 @@ const helmet = require("helmet");
 const xss = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const hpp = require("hpp");
-const bodyParser = require('body-parser')
+//const bodyParser = require('body-parser')
 
 
 
