@@ -18,7 +18,8 @@ const { customAlphabet } = require("nanoid");
 const User = require("../models/User");
 const { getResult } = require("../controllers/ResultController");
 const nanoid = customAlphabet("1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ", 10);
-var moment = require('moment');
+const moment = require('moment-timezone');
+
 let games = {
   hourse: {
     startTime: new Date().getTime() / 1000,
@@ -271,40 +272,65 @@ io.on("connection", (socket) => {
 //     });
 //   });
 });
- console.log("gAME TIME:",games.hourse.startTime);
+
+let firstc=0;
+let gamedrtime;
+//let DrawT= getstartgame(17);
+console.log("gAME TIME:",moment().tz("Asia/Calcutta").format('YYYY-MM-DD HH:mm:ss'));
+//console.log(DrawT);
+ console.log("gAME TIME:",moment().tz("Asia/Calcutta").format('YYYY-MM-DD HH:mm:ss'));
 setInterval(async () => {
   // if (new Date().getHours() > 7 && new Date().getHours() < 22) {
 //   if (new Date().getTime() / 1000 > games.playSmart.startTime + 95) {
 //  //   await getResult(11, "playSmart");
 //   }
-  if (new Date().getTime() / 1000 > games.hourse.startTime + 290) {
-    console.log("gAME TIME:" ,games.hourse.startTime);
-    await getResult1(9, "playToWin");
+// console.log(gamed.DrawTime);
+if (firstc==0){
+  if (new Date().getTime() / 1000 > games.hourse.startTime + 50) {
+    gamedrtime=await getstartgame(17);
+    console.log("gAME TIME:" ,gamedrtime);
+    //await getResult1(9, "playToWin");
   }
+}else{
+   console.log("dr time",gamedrtime);
+  if(moment().tz("Asia/Calcutta").format('YYYY-MM-DD HH:mm:ss')>gamedrtime){
+    console.log("======================dr time===============",gamedrtime);
+    await getResult1(11, "playSmart");
+  }  
+}
   //Get Admin Percentage
  
   //}
 }, 1000);
+
 getstartgame=async(id)=>{
-  let gamed= await getGameDetail(id);
-  console.log("game detail",gamed);
+  let  gamed= await getGameDetail(id);
+   firstc=1;
+  console.log("game detail",gamed.DrawTime);
+  return gamed.DrawTime;
 }
+
 getResult1 = async(a,blur)=>{
   let result = Math.round(Math.random() * 9);
-  games["hourse"].startTime = new Date().getTime() / 1000;
+  //games["hourse"].startTime = new Date().getTime() / 1000;
   let gamed= await getGameDetail(17);
   console.log("game detail",gamed.DrawTime);
-  console.log("game time span",gamed.TimeSpan)
+  //console.log("game time span",gamed.TimeSpan)
   let cgid= gamed.GameID;
      gamed.GameID=gamed.GameID+1;
     
      var ddate = moment( gamed.DrawTime);
-     console.log("game detail",ddate);
+    // console.log("game detail",ddate);
       //ddate=ddate.add(5,'h');
       //ddate=ddate.add(30,'m');
       var ctime=gamed.DrawTime;
-    ddate= ddate.add(gamed.TimeSpan, 's').format("YYYY-MM-DD H:mm:ss ");
-     console.log("game detail2",ddate);
+     
+      console.log("game draw time 1===",gamedrtime);
+    ddate= ddate.add(gamed.TimeSpan, 's').format("YYYY-MM-DD HH:mm:ss ");
+    gamedrtime=ddate;
+    console.log("game draw time 2===",gamedrtime);
+   
+    console.log("game detail2",ddate);
      gamed.DrawTime=ddate;
      console.log("game detail3",gamed);
       await updateGameDetail(gamed);
