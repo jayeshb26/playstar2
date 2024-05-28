@@ -82,10 +82,10 @@ const GameController = {
                     Status: true,
                     ID: 0
                 };
-                //console.log('============[Response - Start]===============');
-                //console.log(response);
-                //console.log('============[Response - End]=================');
-                res.json(response);
+                console.log('============[Response - Start]===============');
+                console.log(response);
+                console.log('============[Response - End]=================');
+                res.status(200).json(response);
             
         } catch (error) {
             console.log('============[Error]=================');
