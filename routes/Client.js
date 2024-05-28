@@ -35,7 +35,7 @@ const router = express.Router();
 // router.post("/", register);
 router.post("/login", login);
 router.post("/retailer/login", loginRetailer);
-router.get("/logout", logout);
+//router.get("/logout", logout);
 router.get("/retailerLogout/:id", logoutRetailer);
 router.get("/transactions", protect, getTransactions);
 router.route("/user/:id").get(getUser)

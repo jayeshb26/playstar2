@@ -26,11 +26,11 @@ const UserController = {
         IsActive: user.IsActive,
         MaxBalance: user.MaxBalance,
         Balance: user.Balance,
-        IsPrintTicket: user.IsPrintTicket,
-        IsPrintCancel: user.IsPrintCancel,
-        IsPrintClaim: user.IsPrintClaim,
-        AutoClaim: user.AutoClaim,
-        ShowJackpot: user.ShowJackpot,
+        IsPrintTicket:true, //user.IsPrintTicket,
+        IsPrintCancel:true, //user.IsPrintCancel,
+        IsPrintClaim:true,// user.IsPrintClaim,
+        AutoClaim: false, //user.AutoClaim,
+        ShowJackpot: false,//user.ShowJackpot,
         AuthToken: 1111111111,
         ShowAllDraw: user.ShowAllDraw,
         AutoBet: user.AutoBet,
@@ -52,14 +52,15 @@ const UserController = {
   },
   logout: async (req, res) => {
     try {
-      const AuthToken = req.body.AuthToken;
+//      const AuthToken = req.body.AuthToken;
 
-      if (!AuthToken || AuthToken === undefined || AuthToken === null) {
-        return res.status(401).json({ message: "Unauthorized" });
-      }
+      // if (!AuthToken || AuthToken === undefined || AuthToken === null) {
+      //   return res.status(401).json({ message: "Unauthorized" });
+      // }
       // Delete or expire the access token here
-      res.clearCookie("AuthToken");
-      res.status(200).json({ message: "Logout successful" });
+//      res.clearCookie("AuthToken");
+      res.status(200).json({  "Message": "Logged out.","Status": true,"ID": 0
+    });
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "Internal server error" });
