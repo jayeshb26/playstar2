@@ -17,10 +17,11 @@ const ResultController = {
                 d1.setHours(d1.getHours() + 5);
                 d1.setMinutes(d1.getMinutes() + 30);
                dd.CurrentTime= d1.toISOString();
-               rr.ID=0;
+             
                dd.Balance=balance;
                dd.WinPoint=0.0;
                let rr;
+               rr.ID=0;
                rr.Balance=balance;
                rr.Result=dd.Result;
                rr.JackpotMultiply=dd.JackpotMultiply;
