@@ -32,7 +32,7 @@ let games = {
     adminBalance: 0,
   }
 };
-//console.log("game start : " +  getstartgame(17))
+//console.log("game start : " +  getstartgame(18))
 let winnerNumber = { playSmart: 0, playToWin: 0 };
 let xcnt = 0;
 let x = 1;
@@ -275,7 +275,7 @@ io.on("connection", (socket) => {
 
 let firstc=0;
 let gamedrtime;
-//let DrawT= getstartgame(17);
+//let DrawT= getstartgame(18);
 console.log("gAME TIME:",moment().tz("Asia/Calcutta").format('YYYY-MM-DD HH:mm:ss'));
 //console.log(DrawT);
  console.log("gAME TIME:",moment().tz("Asia/Calcutta").format('YYYY-MM-DD HH:mm:ss'));
@@ -287,7 +287,7 @@ setInterval(async () => {
 // console.log(gamed.DrawTime);
 if (firstc==0){
   if (new Date().getTime() / 1000 > games.hourse.startTime + 50) {
-    gamedrtime=await getstartgame(17);
+    gamedrtime=await getstartgame(18);
     console.log("gAME TIME:" ,gamedrtime);
     //await getResult1(9, "playToWin");
   }
@@ -313,7 +313,7 @@ getstartgame=async(id)=>{
 getResult1 = async(a,blur)=>{
   let result = Math.round(Math.random() * 9);
   //games["hourse"].startTime = new Date().getTime() / 1000;
-  let gamed= await getGameDetail(17);
+  let gamed= await getGameDetail(18);
   console.log("game detail",gamed.DrawTime);
   //console.log("game time span",gamed.TimeSpan)
   let cgid= gamed.GameID;
@@ -335,7 +335,7 @@ getResult1 = async(a,blur)=>{
      console.log("game detail3",gamed);
       await updateGameDetail(gamed);
      // await updateGameDetail(result, x, isWinByAdmin[gameName], gameName,games[gameName].adminBalance);
-  await addGameResult(result, 17,"N",gamed.GameID,  gamed.DrawTime,ctime,cgid);
+  await addGameResult(result, 18,"N",gamed.GameID,  gamed.DrawTime,ctime,cgid);
 
 }
 // setInterval(async() => {

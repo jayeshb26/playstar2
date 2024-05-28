@@ -24,7 +24,7 @@ const GameController = {
             
             const response = {
                 datalist: Array.from(gameDetails),
-                Message: 'Game details received.',
+                Message: 'Data Received.',
                 Status: true,
                 ID: 0
             };
@@ -51,7 +51,7 @@ const GameController = {
             //let balance = userDetails.Balance;
             const  LeaveFootprint  = req.query.LeaveFootprint;
             const gameId = req.query.GameID;
-            let gameDetails = await GameDetails.findOne({"GameTypeID":17});
+            let gameDetails = await GameDetails.findOne({"GameTypeID":18});
           // console.log( gameDetails.GameName);
           if (!gameDetails) {
             return res.status(404).json({ message: 'Game details not found' });
