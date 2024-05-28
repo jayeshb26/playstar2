@@ -20,8 +20,8 @@ const ResultController = {
              
                dd.Balance=balance;
                dd.WinPoint=0.0;
-               let rr;
-               rr.ID=0;
+               let rr={};
+               
                rr.Balance=balance;
                rr.Result=dd.Result;
                rr.JackpotMultiply=dd.JackpotMultiply;
@@ -30,14 +30,16 @@ const ResultController = {
                rr.WinPoint=0.0;
                rr.CurrentTime=d1.toISOString();
                rr.GameID=dd.gameID;
-              
+               rr.ID=0;
+               rr.Status=true;
+        
 
                rr.Message=  "Result received.";
       if (!result) {
         return res.status(404).json({ message: "Result not found" });
       }
 
-      res.json(dd);
+      res.json(rr);
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "Internal server error" });
