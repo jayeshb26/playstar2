@@ -48,7 +48,7 @@ const GameController = {
             console.log(req.body);
             //let userDetails = await User.findOne({"ID":req.body.RetailerID});
             //console.log(userDetails.Balance);
-            let balance = userDetails.Balance;
+            //let balance = userDetails.Balance;
             const  LeaveFootprint  = req.query.LeaveFootprint;
             const gameId = req.query.GameID;
             let gameDetails = await GameDetails.findOne({"GameTypeID":req.body.GameTypeID});
