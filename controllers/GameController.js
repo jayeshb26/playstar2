@@ -45,13 +45,13 @@ const GameController = {
     },
     getGameDetails: async (req, res) => {
         try {
-            console.log(req.body);
+            //console.log(req.body);
             //let userDetails = await User.findOne({"ID":req.body.RetailerID});
             //console.log(userDetails.Balance);
             //let balance = userDetails.Balance;
             const  LeaveFootprint  = req.query.LeaveFootprint;
             const gameId = req.query.GameID;
-            let gameDetails = await GameDetails.findOne({"GameTypeID":req.body.GameTypeID});
+            let gameDetails = await GameDetails.findOne({"GameTypeID":17});
           // console.log( gameDetails.GameName);
           if (!gameDetails) {
             return res.status(404).json({ message: 'Game details not found' });
