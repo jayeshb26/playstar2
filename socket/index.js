@@ -302,8 +302,8 @@ getResult1 = async(a,blur)=>{
      console.log("game detail",ddate);
       //ddate=ddate.add(5,'h');
       //ddate=ddate.add(30,'m');
-      var ctime=ddate;
-    ddate= ddate.add(gamed.TimeSpan, 's').format("YYYY-MM-DD H:mm:ss ");
+      var ctime=gamed.DrawTime;
+    ddate= ddate.add(gamed.TimeSpan*2, 's').format("YYYY-MM-DD H:mm:ss ");
      console.log("game detail2",ddate);
      gamed.DrawTime=ddate;
      console.log("game detail3",gamed);
