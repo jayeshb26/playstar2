@@ -141,11 +141,11 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: true
     },
-    IsPrintCancel: {
+    PrintCancel: {
       type: Boolean,
       default: true
     },
-    IsPrintClaim: {
+    PrintClaim: {
       type: Boolean,
       default: true
     },

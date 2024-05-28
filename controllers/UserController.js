@@ -66,6 +66,25 @@ const UserController = {
       res.status(500).json({ message: "Internal server error" });
     }
   },
+  RetailerSettUpdate: async (req, res) => {
+     console.log( req.body.RetailerID);
+     console.log( req.query.IsPrintTicket);
+     console.log( req);
+     
+    await User.findOneAndUpdate({"ID":req.body.RetailerID}, {
+
+      IsPrintTicket:req.query.IsPrintTicket,
+      PrintCancel:req.query.PrintCancel,
+      PrintClaim:req.query.PrintClaim,
+      AutoClaim:req.query.AutoClaim,
+      AutoBet:req.query.AutoBet,
+    
+    }); 
+   
+    res.status(200).json({  "Message": "Successfully updated.","Status": true,"ID": 0
+  });
+  },
+ // /RetailerSettUpdate?IsPrintTicket=True&PrintCancel=True&PrintClaim=True&AutoClaim=True&AutoBet=True
 };
 
   module.exports = UserController;
