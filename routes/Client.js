@@ -53,8 +53,8 @@ router.get('/UpdateCheck',UpdateCheck);
 router.get('/GetGameDetailsNew', gameDetailsController.getGameDetails);
  router.get('/GetResult',  ResultController.getResult);
  router.get('/AuthTokenHit', authTokenHit);
-// router.post('/TicketPost',authenticate , TicketController.postTicket);
-// router.get('/logout', authenticate, UserController.logout);
+ router.post('/TicketPost', TicketController.postTicket);
+router.get('/logout', UserController.logout);
 // router.get("/contactus", async function (req, res, next) {
 //   try {
     
