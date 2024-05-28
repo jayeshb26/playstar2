@@ -8,7 +8,7 @@ const resultSchema = new mongoose.Schema({
     JackpotMultiply: { type: String, default: 'N' },
     
     NextGameID: { type: Number, required: true },
-    NextDrawTime: { type: Date, required: true },
+    NextDrawTime: { type: String, required: true },
     CurrentTime: { type: Date, default: Date.now },
     Multiply:{ type: String, default: 'N' },
     DrawTime:{ type: String,default:true},
