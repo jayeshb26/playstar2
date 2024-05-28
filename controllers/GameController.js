@@ -61,7 +61,7 @@ const GameController = {
         
         
          let data = [];
-         data.push( getLastrecord);
+      //   data.push( getLastrecord);
          let x = [];
      
        console.log(data);
@@ -77,7 +77,7 @@ const GameController = {
                     CurrentTime: d1.toISOString(), 
                     DrawTime: gameDetails.DrawTime,
                     GameID: gameDetails.GameID,
-                    OldResultList: data,
+                    OldResultList: getLastrecord,
                     Message: 'Game details received.',
                     Status: true,
                     ID: 0
