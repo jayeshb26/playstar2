@@ -73,11 +73,11 @@ const UserController = {
      
     await User.findOneAndUpdate({"ID":req.body.RetailerID}, {
 
-      IsPrintTicket:req.query.IsPrintTicket,
-      PrintCancel:req.query.PrintCancel,
-      PrintClaim:req.query.PrintClaim,
-      AutoClaim:req.query.AutoClaim,
-      AutoBet:req.query.AutoBet,
+      IsPrintTicket:!!req.query.IsPrintTicket,
+      PrintCancel:!!req.query.PrintCancel,
+      PrintClaim:!!req.query.PrintClaim,
+      AutoClaim:!!req.query.AutoClaim,
+      AutoBet:!!req.query.AutoBet,
     
     }); 
    
