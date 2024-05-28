@@ -45,7 +45,7 @@ const GameController = {
     },
     getGameDetails: async (req, res) => {
         try {
-            console.log(req.body.RetailerID);
+            console.log(req.body);
             let userDetails = await User.findOne({"ID":req.body.RetailerID});
             //console.log(userDetails.Balance);
             let balance = userDetails.Balance;

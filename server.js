@@ -14,6 +14,8 @@ const helmet = require("helmet");
 const xss = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const hpp = require("hpp");
+const bodyParser = require('body-parser')
+
 
 
 
@@ -85,6 +87,18 @@ app.use('/',function(req, res, next){
    console.log("A new request received at " + req.originalUrl+ ":"+ req.body.toString());
    next();
 });
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
+// parse application/vnd.api+json as json
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }))
+
+app.use(function (req, res, next) {
+  console.log(req.body) // populated!
+  next()
+})
 
 //custome error handling from express error handler (Always write below the Mount Routes)
 app.use(errorHandler);
