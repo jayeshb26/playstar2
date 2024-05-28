@@ -271,13 +271,14 @@ io.on("connection", (socket) => {
 //     });
 //   });
 });
-
+ console.log("gAME TIME:",games.hourse.startTime);
 setInterval(async () => {
   // if (new Date().getHours() > 7 && new Date().getHours() < 22) {
 //   if (new Date().getTime() / 1000 > games.playSmart.startTime + 95) {
 //  //   await getResult(11, "playSmart");
 //   }
   if (new Date().getTime() / 1000 > games.hourse.startTime + 299) {
+    console.log("gAME TIME:" ,games.hourse.startTime);
     await getResult1(9, "playToWin");
   }
   //Get Admin Percentage
@@ -294,19 +295,21 @@ getResult1 = async(a,blur)=>{
   let gamed= await getGameDetail(17);
   console.log("game detail",gamed.DrawTime);
   console.log("game time span",gamed.TimeSpan)
+  let cgid= gamed.GameID;
      gamed.GameID=gamed.GameID+1;
     
      var ddate = moment( gamed.DrawTime);
      console.log("game detail",ddate);
-      ddate=ddate.add(5,'h');
-      ddate=ddate.add(30,'m');
+      //ddate=ddate.add(5,'h');
+      //ddate=ddate.add(30,'m');
+      var ctime=ddate;
     ddate= ddate.add(gamed.TimeSpan, 's').format("YYYY-MM-DD H:mm:ss ");
      console.log("game detail2",ddate);
      gamed.DrawTime=ddate;
-     console.log("game detail3",gamed._id);
+     console.log("game detail3",gamed);
       await updateGameDetail(gamed);
      // await updateGameDetail(result, x, isWinByAdmin[gameName], gameName,games[gameName].adminBalance);
-  //await addGameResult(result, x, isWinByAdmin[gameName], gameName,games[gameName].adminBalance);
+  await addGameResult(result, 17,"N",gamed.GameID,  gamed.DrawTime,ctime,cgid);
 
 }
 // setInterval(async() => {

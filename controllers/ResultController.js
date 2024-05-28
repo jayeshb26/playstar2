@@ -15,6 +15,7 @@ const ResultController = {
                 d1.setMinutes(d1.getMinutes() + 30);
                dd.CurrentTime= d1.toISOString();
                dd.ID=0;
+               
                dd.Message=  "Result received.";
       if (!result) {
         return res.status(404).json({ message: "Result not found" });

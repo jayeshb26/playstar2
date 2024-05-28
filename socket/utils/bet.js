@@ -2,6 +2,8 @@ const User = require("../../models/User");
 const Bet = require("../../models/Bet");
 const gameDetail = require("../../models/GameDetails");
 const WinResult = require("../../models/WinResult");
+const WResult = require("../../models/results");
+
 const Winning = require("../../models/Winning");
 const Admin = require("../../models/Admin");
 
@@ -159,10 +161,26 @@ async function winGamePay(price, betId, winPosition) {
 }
 
 //Add result of the Game
-async function addGameResult(result, x, isWinByAdmin, gameName,adminBalance) {
+async function addGameResult(result, GameTypeId, JackpotMultiply, NextGameID,NextDrawTime,CurrentTime,gameID) {
   try {
-    await WinResult.create({ result, x, isWinByAdmin, gameName,adminbalnce: adminBalance });
-    await Bet.updateMany({ winPosition: "", gameName }, { winPosition: result, x: x });
+    await WResult.create({ 
+
+      Result: result,
+      GameTypeId:GameTypeId ,
+     
+      JackpotMultiply: JackpotMultiply,
+      
+      NextGameID:NextGameID ,
+      NextDrawTime: NextDrawTime,
+      CurrentTime: CurrentTime,
+      DrawTime: CurrentTime,
+      Multiply:JackpotMultiply,
+      gameID: gameID,
+      
+      
+    
+    });
+ //   await Bet.updateMany({ winPosition: "", gameName }, { winPosition: result, x: x });
   } catch (err) {
     console.log("Error on addGameResult", err.message);
     return err.message;

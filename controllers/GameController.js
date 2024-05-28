@@ -1,5 +1,7 @@
 const GameDetails = require('../models/GameDetails');
 const Games = require('../models/Game');
+const User = require('../models/User');
+const Result = require('../models/results');
 //const Gametime = require('../socket/index');
 process.env.TZ='Asia/Kolkata' ;
 const GameController = {
@@ -43,19 +45,31 @@ const GameController = {
     },
     getGameDetails: async (req, res) => {
         try {
-            
+            console.log(req.body.RetailerID);
+            let userDetails = await User.findOne({"ID":req.body.RetailerID});
+            //console.log(userDetails.Balance);
+            let balance = userDetails.Balance;
             const  LeaveFootprint  = req.query.LeaveFootprint;
             const gameId = req.query.GameID;
-            if( LeaveFootprint === true){
-                
-                const gameDetails = await GameDetails.findOne({  }); //GameID: req.query.GameID
-
-                if (!gameDetails) {
-                    return res.status(404).json({ message: 'Game details not found' });
-                }
-                let d1=new Date();
+            let gameDetails = await GameDetails.findOne({"GameTypeID":req.body.GameTypeID});
+          // console.log( gameDetails.GameName);
+          if (!gameDetails) {
+            return res.status(404).json({ message: 'Game details not found' });
+        }  
+           let getLastrecord= await Result.find({"GameTypeId": gameDetails.GameTypeID}).select({Result:1,DrawTime:1,Multiply:1,_id:0}).limit(10);
+    
+        
+        
+         let data = [];
+         data.push( getLastrecord);
+         let x = [];
+     
+       console.log(data);
+           
+           let d1=new Date();
                 d1.setHours(d1.getHours() + 5);
                 d1.setMinutes(d1.getMinutes() + 30);
+                console.log(getLastrecord);
                 const response = {
                     GameTypeID: gameDetails.GameTypeID,
                     TimeSpan: gameDetails.TimeSpan,
@@ -63,41 +77,16 @@ const GameController = {
                     CurrentTime: d1.toISOString(), 
                     DrawTime: gameDetails.DrawTime,
                     GameID: gameDetails.GameID,
-                    OldResultList: gameDetails.OldResultList,
+                    OldResultList: data,
                     Message: 'Game details received.',
                     Status: true,
                     ID: 0
                 };
-                console.log('============[Response - Start]===============');
-                console.log(response);
-                console.log('============[Response - End]=================');
+                //console.log('============[Response - Start]===============');
+                //console.log(response);
+                //console.log('============[Response - End]=================');
                 res.json(response);
-            }else{
-                const gameDetails = await GameDetails.findOne({ gameId });
-                
-                if (!gameDetails) {
-                    return res.status(404).json({ message: 'Game details not found' });
-                }
-                let d1=new Date();
-                d1.setHours(d1.getHours() + 5);
-                d1.setMinutes(d1.getMinutes() + 30);
-                const response = {
-                    GameTypeID: gameDetails.GameTypeID,
-                    TimeSpan: gameDetails.TimeSpan,
-                    GameName: gameDetails.GameName,
-                    CurrentTime: d1.toISOString(), 
-                    DrawTime: gameDetails.DrawTime,
-                    GameID: gameDetails.GameID,
-                    OldResultList: gameDetails.OldResultList,
-                    Message: 'hh Game details received.',
-                    Status: true,
-                    ID: 0
-                };
-                console.log('============[Response - Start]===============');
-                console.log(response);
-                console.log('============[Response - End]=================');
-                res.json(response);
-            }
+            
         } catch (error) {
             console.log('============[Error]=================');
             console.error(error);
