@@ -56,6 +56,8 @@ router.get('/GetGameDetailsNew', gameDetailsController.getGameDetails);
  router.get('/GetResult',  ResultController.getResult);
  router.get('/AuthTokenHit', authTokenHit);
  router.post('/TicketPost', TicketController.postTicket);
+ router.get('/RetailerTicketList', TicketController.RetailerTicketList);
+
 router.get('/RetailerLogout', UserController.logout);
 //RetailerSettUpdate
 // router.get("/contactus", async function (req, res, next) {

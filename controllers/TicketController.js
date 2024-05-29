@@ -18,6 +18,7 @@ const TicketController = {
             console.log(userDetails.Balance);
             //let balance = userDetails.Balance;4
             let newTicket;
+            ticketData.GameName=gameDetails.GameName,
             ticketData.startpoint=userDetails.Balance;
             ticketData.endpoint=parseFloat(userDetails.Balance.toFixed(3).padStart(6, '0'))+0.001-parseFloat(req.body.TotalAmount.toFixed(2));
               console.log(ticketData.Balance);
@@ -46,6 +47,7 @@ const TicketController = {
             GameID: newTicket.GameID,
             GameIDLists: newTicket.GameIDLists,
             TicketIDList:newTicket.GameIDLists,
+           
             Message: "Bet Accepted.",
             Status: true,
             ID: 0
@@ -80,13 +82,26 @@ const TicketController = {
       let dt =await Ticket.find({"RetailerID": ticketData.RetailerID });
       let data = [];
       let x = [];
+      let sdt={}
   let cnt=0;
       for (let res of dt) {
        console.log(data);
-        data[cnt]['TicketID']=res.TicketID;
-        data[cnt]['GameID']=res.GameID;
+       sdt.TicketID=res.TicketID;
+        sdt.GameID=res.GameID;
+        sdt.SalePoint=res.TotalAmount;
+        sdt.ClaimPoint=res.won;
+        sdt.WinPoint=res.won;
+        sdt.Result=res.winPosition;
+        sdt.JackpotMultiply=res.x;
+        sdt.TicketTime=res.DrawTime;
+        sdt.DrawTime=res.DrawTime;
+        sdt.GameName=res.x;
+        
+        console.log(cnt);
         cnt++;
-       // x.push(res.x);
+       data.push(sdt);
+       console.log(data);
+       sdt={};
       }
       
       res.status(201).json({data});

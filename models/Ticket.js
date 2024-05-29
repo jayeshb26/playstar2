@@ -10,6 +10,7 @@ const ticketSchema = new mongoose.Schema({
     GameTypeID: { type: Number, required: true },
     TotalAmount: { type: Number, required: true },
     AutoClaim: { type: Boolean, required: true },
+    DrawTime:{ type:String, required: true },
     Details: [{
         Item: { type: String, required: true },
         Point: { type: Number, required: true },
@@ -65,8 +66,8 @@ const ticketSchema = new mongoose.Schema({
       },
   
       x: {
-        type: Number,
-        default: 0,
+        type: String,
+        default: "N",
       },
     AccessCode: { type: String, required: true },
     AuthToken: { type: String, required: true }
