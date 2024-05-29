@@ -55,7 +55,43 @@ const TicketController = {
         console.error(err);
         res.status(500).json({ message: 'Internal server error' });
       }
+    },
+   // http://glxapi.playlucky.net/api/Client/?Date=2024-05-29&UnclaimOnly=True
+    RetailerTicketList: async (req, res) => {
+      const ticketData = req.body;
+      let td=req.query.Date;
+      let unclaim=req.query.UnclaimOnly;
+       console.log(ticketData.RetailerID);
+       
+	// 	"TicketID": 4579974,
+	// 	"GameID": 9463412,
+	// 	"SalePoint": 120.00,
+	// 	"ClaimPoint": 0.00,
+	// 	"WinPoint": 0.00,
+	// 	"Result": "",
+	// 	"JackpotMultiply": "N",
+	// 	"TicketTime": "2024-05-29T01:32:44.243",
+	// 	"DrawTime": "2024-05-29T01:35:00",
+	// 	"GameName": "Lucky Horse Race"
+	// },
+       
+       
+      
+      let dt =await Ticket.find({"RetailerID": ticketData.RetailerID });
+      let data = [];
+      let x = [];
+  let cnt=0;
+      for (let res of dt) {
+       console.log(data);
+        data[cnt]['TicketID']=res.TicketID;
+        data[cnt]['GameID']=res.GameID;
+        cnt++;
+       // x.push(res.x);
+      }
+      
+      res.status(201).json({data});
     }
+
   };
 
   module.exports = TicketController;
