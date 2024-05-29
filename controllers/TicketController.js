@@ -95,7 +95,7 @@ const TicketController = {
         sdt.JackpotMultiply=res.x;
         sdt.TicketTime=res.DrawTime;
         sdt.DrawTime=res.DrawTime;
-        sdt.GameName=res.x;
+        sdt.GameName=res.GameName;
         
         console.log(cnt);
         cnt++;
@@ -104,7 +104,12 @@ const TicketController = {
        sdt={};
       }
       
-      res.status(201).json({data});
+      res.status(201).json({
+        datalist:data,
+        Message: "Bet Accepted.",
+        Status: true,
+        ID: 0
+      });
     }
 
   };
