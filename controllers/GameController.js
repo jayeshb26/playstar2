@@ -60,7 +60,7 @@ const GameController = {
           if (!gameDetails) {
             return res.status(404).json({ message: 'Game details not found' });
         }  
-           let getLastrecord= await Result.find({"GameTypeId": gameDetails.GameTypeID}).select({Result:1,DrawTime:1,Multiply:1,_id:0}).limit(10);
+           let getLastrecord= await Result.find({"GameTypeId": gameDetails.GameTypeID}).sort({ '_id': -1 } ).select({Result:1,DrawTime:1,Multiply:1,_id:0}).limit(20);
     
         
         
