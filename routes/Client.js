@@ -58,6 +58,9 @@ router.get('/GetGameDetailsNew', gameDetailsController.getGameDetails);
  router.post('/TicketPost', TicketController.postTicket);
  router.get('/RetailerTicketList', TicketController.RetailerTicketList);
  router.get('/RetailerSaleReport', TicketController.RetailerSaleReport);
+ router.get('/TicketClaim', TicketController.TicketClaim);
+ router.get('/TicketClaimAll', TicketController.TicketClaimAll);
+
 
 router.get('/RetailerLogout', UserController.logout);
 //RetailerSettUpdate

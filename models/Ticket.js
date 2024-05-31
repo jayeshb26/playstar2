@@ -60,10 +60,20 @@ const ticketSchema = new mongoose.Schema({
         type: Number,
         default: 0,
       },
+      status: {
+        type: Number,
+        default: 0,
+      },
       claim: {
         type: Boolean,
         default: false,
-      },
+      },  IsCancelled: {
+        type: Boolean,
+        default: false,
+      },  
+       
+      CancelTime: { type:String },
+      ClaimTime:{ type:String },
   
       x: {
         type: String,

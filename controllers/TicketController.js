@@ -1,6 +1,7 @@
 const Ticket = require("../models/Ticket")
 const User = require("../models/User");
-const GameDetails = require("../models/GameDetails")
+const GameDetails = require("../models/GameDetails");
+const PointLogList = require("../models/PointLogList");
 
 const TicketController = {
     postTicket: async (req, res) => {
@@ -23,6 +24,8 @@ const TicketController = {
             ticketData.endpoint=parseFloat(userDetails.Balance.toFixed(3).padStart(6, '0'))+0.001-parseFloat(req.body.TotalAmount.toFixed(2));
               console.log(ticketData.Balance);
                newTicket = await Ticket.create(ticketData);
+
+           
         await User.findOneAndUpdate({"ID":ticketData.RetailerID}, {
         $inc: {
           Balance: -req.body.TotalAmount,
@@ -33,7 +36,20 @@ const TicketController = {
         lastTicketId: newTicket.TicketID,
       });   
             
-        console.log(newTicket);
+      let pointl={}
+      pointl.GameID=  ticketData.GameID,
+      pointl.RetailerID=ticketData.RetailerID;
+      pointl.TicketID=newTicket.TicketID;
+      pointl.UserCode=userDetails.Balance;
+      pointl.GameName=  ticketData.GameName;
+      pointl.PrevBal=userDetails.Balance;
+      pointl.AddPoint=0.0;
+      pointl.MinusPoint=req.body.TotalAmount.toFixed(2);
+      pointl.NewBal= ticketData.endpoint;
+      pointl.DnT=ticketData.DrawTime;
+      pointl.TicketAdjType="Ticket Bet"; 
+        console.log(pointl);
+         await PointLogList.create(pointl);
         
         const balance = ticketData.endpoint; 
         const currentTime = new Date();
@@ -159,8 +175,66 @@ const TicketController = {
          Status: true,
          ID: 0
        });
-    }
+    },
+    TicketClaim: async (req, res) => {
+      const ticketData = req.body;
+      let TicketID=req.query.TicketID;
+      let AutoClaim=req.query.AutoClaim;
+      
+       console.log(ticketData.RetailerID);
+       let userDetails = await User.findOne({"ID": ticketData.RetailerID});
+       let dt =await Ticket.find({TicketID: TicketID});
+    console.log(dt.status);
 
+         
+       res.status(201).json({
+        RetailerID: ticketData.RetailerID,
+        Balance: userDetails.balance,
+        IsClaimed: dt.claim,
+        GameID: dt.GameID,
+        PlayAmt: dt.TotalAmount,
+        ClaimAmt: dt.won,
+        DrawTime: dt.DrawTime,
+        DrawName: dt.GameName,
+        IsCancelled: false,
+        CancelTime: null,
+        ClaimTime: null,
+        TicketID: TicketID,
+         Message: "Data received",
+         Status: true,
+         ID: 0
+       });
+    },
+    TicketClaimAll: async (req, res) => {
+      const ticketData = req.body;
+      let TicketID=req.query.TicketID;
+      let AutoClaim=req.query.AutoClaim;
+      
+       console.log(ticketData.RetailerID);
+       let userDetails = await User.findOne({"ID": ticketData.RetailerID});
+       let dt =await Ticket.find({TicketID: TicketID});
+    console.log(dt.status);
+
+         
+       res.status(201).json({
+        RetailerID: ticketData.RetailerID,
+        Balance: userDetails.balance,
+        IsClaimed: false,
+        GameID:0,
+        PlayAmt:0.0,
+        ClaimAmt: 0.0,
+        DrawTime: null,
+        DrawName: null,
+        IsCancelled: false,
+        CancelTime: null,
+        ClaimTime: null,
+        TicketID:0,
+        Message: "No un-claim ticket available.",
+
+         Status: true,
+         ID: 0
+       });
+    }
   };
 
   module.exports = TicketController;
