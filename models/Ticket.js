@@ -38,7 +38,7 @@ const ticketSchema = new mongoose.Schema({
             .replace(/\//g, (x) => "-"),
       },
       createDate: {
-        type: String,
+        type: Date,
         default: () =>
           new Date()
             .toISOString("en-US", {
