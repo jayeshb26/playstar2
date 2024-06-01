@@ -1,5 +1,6 @@
 const { io } = require("../server");
 const { getUserInfoBytoken, getUserInfo, logOutUser } = require("./utils/users");
+const { getGameBetDetail } = require("../controllers/TicketController");
 const {
   placeBet,
   winGamePay,
@@ -9,7 +10,8 @@ const {
   getAdminData,
   updatebalnce,
   getGameDetail,
-  updateGameDetail
+  updateGameDetail,
+
 } = require("./utils/bet");
 
 const immutable = require("object-path-immutable");
@@ -298,6 +300,7 @@ if (firstc==0){
     await getResult1(11, "playSmart");
   }  
 }
+
   //Get Admin Percentage
  
   //}
@@ -310,6 +313,7 @@ getstartgame=async(id)=>{
   return gamed.DrawTime;
 }
 
+
 getResult1 = async(a,blur)=>{
   let result = Math.round(Math.random() * 9);
   //games["hourse"].startTime = new Date().getTime() / 1000;
@@ -317,6 +321,10 @@ getResult1 = async(a,blur)=>{
   console.log("game detail",gamed.DrawTime);
   //console.log("game time span",gamed.TimeSpan)
   let cgid= gamed.GameID;
+  let reultb=await getGameBetDetail(cgid);
+  result=reultb.result;
+  x=reultb.x;
+  console.log("FFFFF",await getGameBetDetail(cgid));
      gamed.GameID=gamed.GameID+1;
     
      var ddate = moment( gamed.DrawTime);
@@ -335,9 +343,11 @@ getResult1 = async(a,blur)=>{
      console.log("game detail3",gamed);
       await updateGameDetail(gamed);
      // await updateGameDetail(result, x, isWinByAdmin[gameName], gameName,games[gameName].adminBalance);
-  await addGameResult(result, 18,"N",gamed.GameID,  gamed.DrawTime,ctime,cgid);
+  await addGameResult(result, 18,x,gamed.GameID,  gamed.DrawTime,ctime,cgid);
 
 }
+console.log("result--------------22222222222222222222222221111111111111111 avvvvuuuu",getResult1(11, "playSmart"));
+
 // setInterval(async() => {
 //   x['playToWin'] = 1;
 //   console.log('x Round', x['playToWin']);

@@ -2,6 +2,7 @@ const Ticket = require("../models/Ticket")
 const User = require("../models/User");
 const GameDetails = require("../models/GameDetails");
 const PointLogList = require("../models/PointLogList");
+const immutable = require("object-path-immutable");
 
 const TicketController = {
     postTicket: async (req, res) => {
@@ -143,6 +144,7 @@ const TicketController = {
        let data = [];
        let x = [];
        let sdt={}
+
    let cnt=0;
    let cntsale=0;
    let cntwin=0;
@@ -234,7 +236,160 @@ const TicketController = {
          Status: true,
          ID: 0
        });
+    },
+    getGameBetDetail: async (req, res) => {
+      
+      console.log(req);
+      req=929142;
+       //let userDetails = await User.findOne({"ID": ticketData.RetailerID});
+       let data = [];
+       let x = [];
+       let sdt={}
+       
+   let cnt=0;
+   let cntsale=0;
+   let cntwin=0;
+   let cntclaim=0;
+   let cntend=0;
+   let multiplyer = 10;
+       multiplyer = 10;
+       let gposition={};
+       let gtransactions={};
+       function  resultcallback(position,tcid)
+       {
+     for (let pos in position) {
+       gposition = immutable.update(gposition, [pos], (v) =>
+         v ? v + position[pos] * multiplyer : position[pos] * multiplyer
+       );
+       gtransactions = immutable.update(gtransactions, [pos, tcid], (v) =>
+         v ? v + position[pos] * multiplyer : position[pos] * multiplyer
+       );
+     }
     }
-  };
+
+    //  console.log( games[gameName].position);
+    //  console.log( transactions[gameName]);
+ let tempPos={};
+ let dt =await Ticket.find({GameID: req});
+    if(dt.length > 0) {     
+ for (let res of dt) {
+      //  console.log(res.Details);
+           for(let i=0; i<res.Details.length;i++)
+            {
+              //console.log(res.Details[i].Item);
+              //console.log(res.Details[i].Point);
+                tempPos[res.Details[i].Item]=res.Details[i].Point;
+            }
+        sdt.TicketID=res.TicketID;
+         sdt.GameID=res.GameID;
+         sdt.cntsale=cntsale+res.TotalAmount;
+         sdt.cntclaim=cntclaim+res.won;
+         sdt.cntwin=cntclaim+res.won;
+         console.log("ssstc",res.TicketID);
+         console.log(tempPos);
+         resultcallback(tempPos,res.TicketID);
+    
+       }
+       let result = Math.round(Math.random() * 9);
+       console.log("===game================================ ",result);
+      
+    console.log(gposition);
+    console.log(gtransactions[result]);
+    for (const transId in gtransactions[result]) {
+         gtransactions[result][transId] =
+          gtransactions[result][transId] * 1;
+  //        console.log(transId);
+         }
+         console.log(gtransactions[result]);
+    for (const transId in gtransactions[result]) {
+    console.log(transId);
+    console.log("Result Price is :", gtransactions[result][transId]);
+   
+    let tcaa= await Ticket.findOne({TicketID:transId});
+if(tcaa.AutoClaim){
+    await Ticket.findOne({TicketID:transId},function (err, product) {
+   //   product.category = fields.category ? fields.category[0] : product.category;
+   
+    //  if(product.AutoClaim===true)x x = product.AutoClaim
+      //  {
+          product.claim=true;
+          product.winPosition= result;
+      product.won=gtransactions[result][transId];
+      console.log("Product", product.RetailerID);
+      product.save(function (err) {
+          if(err) {
+              console.error('ERROR!');
+          }
+      });
+  },{ new: true }).then(firstDoc => {
+    if (!firstDoc) {
+      throw new Error('First document not found.');
+    }
+  console.log("first doc",firstDoc.RetailerID);
+  return Promise.all([firstDoc,User.findOneAndUpdate(
+    {"ID":firstDoc.RetailerID},
+    {
+              $inc: {
+                 Balance:  gtransactions[result][transId],
+                wonPoint:  gtransactions[result][transId],
+               },},
+    { new: true } // To get the updated document as a result
+  )]);
+})
+.then(([firstDoc, secondDoc]) => {
+  if (!secondDoc) {
+    throw new Error('Second document not found.');
+  }
+  console.log('Second document updated:', secondDoc.ID);
+  console.log('Second document updated:', secondDoc.Balance);
+  console.log("first doc",firstDoc.RetailerID);
+           
+      let pointl={}
+      pointl.GameID=  firstDoc.GameID,
+      pointl.RetailerID=firstDoc.RetailerID;
+      pointl.TicketID=firstDoc.TicketID;
+      pointl.UserCode=secondDoc.Code;
+      pointl.GameName=  firstDoc.GameID;
+      pointl.PrevBal=secondDoc.Balance;
+      pointl.AddPoint=gtransactions[result][transId];
+      pointl.MinusPoint=0.0;
+      pointl.NewBal= Number( secondDoc.Balance+gtransactions[result][transId]);
+      pointl.DnT=firstDoc.DrawTime;
+      pointl.TicketAdjType="AUto Claim"; 
+        console.log(pointl);
+         PointLogList.create(pointl)
+})
+.catch(error => {
+  console.error('Error:', error);
+});
+}else{
+ // product.claim=true;
+ tcaa.winPosition= result;
+ tcaa.won=gtransactions[result][transId];
+console.log("Product falssssssssss", tcaa.RetailerID);
+tcaa.save(function (err) {
+  if(err) {
+      console.error('ERROR!');
+  }
+}  );
+}
+    }
+    let ress={};
+    ress.result=result;
+    ress.x="N";
+    return ress;
+  
+    }else{
+      let ress={};
+      let result = Math.round(Math.random() * 9);
+      let resultx = Math.round(Math.random() * 9);
+     
+      ress.result=result;
+     
+      ress.x=resultx+"X";
+      return ress;
+       
+    }
+  }  };
 
   module.exports = TicketController;
