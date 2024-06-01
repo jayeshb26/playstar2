@@ -240,7 +240,7 @@ const TicketController = {
     getGameBetDetail: async (req, res) => {
       
       console.log(req);
-      req=929142;
+     // req=929142;
        //let userDetails = await User.findOne({"ID": ticketData.RetailerID});
        let data = [];
        let x = [];
@@ -386,7 +386,7 @@ tcaa.save(function (err) {
      
       ress.result=result;
      
-      ress.x=resultx+"X";
+      ress.x="N";
       return ress;
        
     }
