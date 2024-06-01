@@ -290,7 +290,7 @@ const TicketController = {
          resultcallback(tempPos,res.TicketID);
     
        }
-       let result = Math.round(Math.random() * 9);
+       let result = Math.floor(Math.random() * 10) + 1;
        console.log("===game================================ ",result);
       
     console.log(gposition);
