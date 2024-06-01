@@ -60,6 +60,7 @@ router.get('/GetGameDetailsNew', gameDetailsController.getGameDetails);
  router.get('/RetailerSaleReport', TicketController.RetailerSaleReport);
  router.get('/TicketClaim', TicketController.TicketClaim);
  router.get('/TicketClaimAll', TicketController.TicketClaimAll);
+ router.get('/PointLogList', TicketController.PointLogList);
 
 
 router.get('/RetailerLogout', UserController.logout);

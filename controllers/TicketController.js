@@ -390,6 +390,55 @@ tcaa.save(function (err) {
       return ress;
        
     }
-  }  };
+  } ,
+  PointLogList :async (req, res) => {
+    const ticketData = req.body;
+    let ToDate=req.query.Date;
+   // let FromDate=req.query.FromDate;
+     console.log(ticketData.RetailerID);
+     //let fd=new Date(FromDate);
+    let td= new Date(ToDate);
+    console.log(td);
+     let dt =await  PointLogList.find({DrDate: td});
+  console.log(dt);
+     let data = [];
+     let x = [];
+     let sdt={}
+
+ let cnt=0;
+ let cntsale=0;
+ let cntwin=0;
+ let cntclaim=0;
+ let cntend=0;
+
+  //    for (let res of dt) {
+  //     console.log(dt);
+  //     sdt.TicketID=res.TicketID;
+  //      sdt.GameID=res.GameID;
+  //      cntsale=cntsale+res.TotalAmount;
+  //      cntclaim=cntclaim+res.won;
+  //      cntwin=cntclaim+res.won;
+  
+  //    }
+  //    sdt.Date= new Date();
+  //    sdt.SalePoint= cntsale,
+  //    sdt.WinPoint= cntwin,
+  //    sdt.ClaimPoint= cntclaim,
+  //    sdt.EndsPoint= cntsale,
+  //    sdt.Commi= 0.0,
+  //    sdt.NTP= cntsale-cntwin,
+  //    sdt.ClaimCommi= 0.0,
+  //    sdt.BONUS= 0.0
+  // data.push(sdt);
+     
+     res.status(201).json({
+       datalist:dt,
+       Message: "Data received",
+       Status: true,
+       ID: 0
+     });
+  },
+
+};
 
   module.exports = TicketController;
