@@ -30,7 +30,7 @@ const UserController = {
         IsPrintCancel:true, //user.IsPrintCancel,
         IsPrintClaim:true,// user.IsPrintClaim,
         AutoClaim: false, //user.AutoClaim,
-        ShowJackpot: false,//user.ShowJackpot,
+        ShowJackpot: true,//user.ShowJackpot,
         AuthToken: 1111111111,
         ShowAllDraw: user.ShowAllDraw,
         AutoBet: user.AutoBet,
