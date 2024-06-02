@@ -7,6 +7,7 @@ const ResultController = {
   getResult: async (req, res) => {
     try {
       const result = await Result.findOne({ "gameID":req.body.GameID });
+      console.log(JSON.stringify(result));
           let userDetails = await User.findOne({"ID":req.body.RetailerID});
           let TicketDetais = await Ticket.findOne({"RetailerID":req.body.RetailerID, "GameID":req.body.GameID});
             console.log(userDetails.Balance);
@@ -18,7 +19,7 @@ const ResultController = {
      let d1=new Date();
                 d1.setHours(d1.getHours() + 5);
                 d1.setMinutes(d1.getMinutes() + 30);
-               dd.CurrentTime= d1.toISOString();
+               dd.CurrentTime=new Date(); //d1.toISOString();
              
                dd.Balance=balance;
                dd.WinPoint=0.0;
