@@ -2,11 +2,13 @@ const { json } = require("body-parser");
 const Result = require("../models/results");
 const jwt = require("jsonwebtoken");
 const User = require('../models/User');
+const Ticket = require('../models/Ticket');
 const ResultController = {
   getResult: async (req, res) => {
     try {
-      const result = await Result.findOne({  });
+      const result = await Result.findOne({ "gameID":req.body.GameID });
           let userDetails = await User.findOne({"ID":req.body.RetailerID});
+          let TicketDetais = await Ticket.findOne({"RetailerID":req.body.RetailerID, "GameID":req.body.GameID});
             console.log(userDetails.Balance);
             let balance = userDetails.Balance;
      console.log(JSON.stringify(result));
@@ -27,7 +29,7 @@ const ResultController = {
                rr.JackpotMultiply=dd.JackpotMultiply;
                rr.NextGameID=dd.NextGameID;
                rr.NextDrawTime=dd.DrawTime;
-               rr.WinPoint=0.0;
+               rr.WinPoint=TicketDetais.won;
                rr.CurrentTime=d1.toISOString();
                rr.GameID=dd.gameID;
                rr.ID=0;

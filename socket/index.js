@@ -346,7 +346,7 @@ getResult1 = async(a,blur)=>{
   await addGameResult(result, 18,x,gamed.GameID,  gamed.DrawTime,ctime,cgid);
 
 }
-console.log("result--------------22222222222222222222222221111111111111111 avvvvuuuu",getResult1(11, "playSmart"));
+//console.log("result--------------22222222222222222222222221111111111111111 avvvvuuuu",getResult1(11, "playSmart"));
 
 // setInterval(async() => {
 //   x['playToWin'] = 1;
