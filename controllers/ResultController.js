@@ -24,7 +24,7 @@ const ResultController = {
                dd.Balance=balance;
                dd.WinPoint=0.0;
                let rr={};
- if(TicketDetais.won)
+ if(TicketDetais)
   {
     dd.WinPoint=TicketDetais.won;
   }
