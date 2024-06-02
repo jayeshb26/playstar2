@@ -23,13 +23,16 @@ const ResultController = {
                dd.Balance=balance;
                dd.WinPoint=0.0;
                let rr={};
-               
+ if(isSet(TicketDetais.won))
+  {
+    dd.WinPoint=TicketDetais.won;
+  }
                rr.Balance=balance;
                rr.Result=dd.Result;
                rr.JackpotMultiply=dd.JackpotMultiply;
                rr.NextGameID=dd.NextGameID;
                rr.NextDrawTime=dd.DrawTime;
-               rr.WinPoint=0.0;
+               rr.WinPoint=dd.WinPoint;
                rr.CurrentTime=d1.toISOString();
                rr.GameID=dd.gameID;
                rr.ID=0;
