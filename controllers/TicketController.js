@@ -2,6 +2,7 @@ const Ticket = require("../models/Ticket")
 const User = require("../models/User");
 const GameDetails = require("../models/GameDetails");
 const PointLogList = require("../models/PointLogList");
+const Resultmodel = require("../models/results");
 const immutable = require("object-path-immutable");
 
 const TicketController = {
@@ -452,6 +453,48 @@ tcaa.save(function (err) {
      res.status(201).json({
      
       datalist:dt.Details,
+       Message: "Data received",
+       Status: true,
+       ID: 0
+     });
+  },
+  ResultList: async (req, res) => {
+    const ticketData = req.body;
+    let ToDate=req.query.ResultDate;
+    let AutoClaim=req.query.AutoClaim;
+    //console.log("ticketData: " + TicketID);
+   //  console.log(ticketData.RetailerID);
+   //  let userDetails = await User.findOne({"ID": ticketData.RetailerID});
+    // let dt =await Ticket.findOne({TicketID: TicketID});
+
+    let td= new Date(ToDate);
+    console.log(td);
+    const startDate = new Date(ToDate);
+  let   month = '' + (startDate.getMonth() + 1);
+    let day = '' + startDate.getDate();
+    let year = startDate.getFullYear();
+    if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+    startDate.setHours(0, 0, 0, 0); // Set to the start of the day
+    const startString =year+"-"+month+"-"+day+" 00:00:00 " ;//startDate.toISOString().slice(0, 19).replace('T', ' ');
+    const endDate = new Date(ToDate);
+    endDate.setHours(23, 59, 59, 999); // Set to the end of the day
+    const endString =year+"-"+month+"-"+day+" 23:59:59 "; //endDate.toISOString().slice(0, 19).replace('T', ' ');
+    console.log(startString);
+    console.log(endString);
+
+     let dt =await  Resultmodel.find({DrawTime:  {
+      $gte: startString,
+      $lte: endString
+    }});
+  console.log(dt);
+
+       
+     res.status(201).json({
+     
+      datalist:dt,
        Message: "Data received",
        Status: true,
        ID: 0
