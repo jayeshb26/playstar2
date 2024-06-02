@@ -61,7 +61,7 @@ router.get('/GetGameDetailsNew', gameDetailsController.getGameDetails);
  router.get('/TicketClaim', TicketController.TicketClaim);
  router.get('/TicketClaimAll', TicketController.TicketClaimAll);
  router.get('/PointLogList', TicketController.PointLogList);
-
+ router.get('/RetailerTicketDetails', TicketController.RetailerTicketDetails);
 
 router.get('/RetailerLogout', UserController.logout);
 //RetailerSettUpdate

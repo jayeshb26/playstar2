@@ -438,6 +438,25 @@ tcaa.save(function (err) {
        ID: 0
      });
   },
+  RetailerTicketDetails: async (req, res) => {
+    const ticketData = req.body;
+    let TicketID=req.query.TicketID;
+    let AutoClaim=req.query.AutoClaim;
+    //console.log("ticketData: " + TicketID);
+   //  console.log(ticketData.RetailerID);
+   //  let userDetails = await User.findOne({"ID": ticketData.RetailerID});
+     let dt =await Ticket.findOne({TicketID: TicketID});
+  //console.log(dt.Details);
+
+       
+     res.status(201).json({
+     
+      datalist:dt.Details,
+       Message: "Data received",
+       Status: true,
+       ID: 0
+     });
+  }
 
 };
 
