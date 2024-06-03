@@ -295,7 +295,9 @@ if (firstc==0){
   }
 }else{
    console.log("dr time",gamedrtime);
-  if(moment().tz("Asia/Calcutta").format('YYYY-MM-DD HH:mm:ss')>gamedrtime){
+   console.log("======================dr time41===============", moment(gamedrtime).add(10, 'seconds'));
+   
+  if(moment().tz("Asia/Calcutta").format('YYYY-MM-DD HH:mm:ss')> moment(gamedrtime).add(10, 'seconds').format('YYYY-MM-DD HH:mm:ss')){
     console.log("======================dr time===============",gamedrtime);
     await getResult1(11, "playSmart");
   }  
