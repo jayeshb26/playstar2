@@ -19,14 +19,21 @@ const ResultController = {
      let d1=new Date();
                 d1.setHours(d1.getHours() + 5);
                 d1.setMinutes(d1.getMinutes() + 30);
-               dd.CurrentTime=new Date(); //d1.toISOString();
-             
-               dd.Balance=balance;
-               dd.WinPoint=0.0;
+              
                let rr={};
  if(TicketDetais)
   {
+    dd.CurrentTime=new Date(); //d1.toISOString();
+             
+    dd.Balance=balance;
+    dd.WinPoint=0.0;
     dd.WinPoint=TicketDetais.won;
+    
+  }else{
+    dd.CurrentTime=new Date(); //d1.toISOString();
+             
+    //dd.Balance=balance;
+    WinPoint=0.0;
   }
                rr.Balance=balance;
                rr.Result=dd.Result;
