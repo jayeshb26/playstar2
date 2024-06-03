@@ -81,8 +81,44 @@ const TicketController = {
       const ticketData = req.body;
       let td=req.query.Date;
       let unclaim=req.query.UnclaimOnly;
+        let claim=true;
+     
+ console.log(claim);
        console.log(ticketData.RetailerID);
+       td= new Date(td);
+       console.log(td);
+       const startDate = new Date(td);
+     let   month = '' + (startDate.getMonth() + 1);
+       let day = '' + startDate.getDate();
+       let year = startDate.getFullYear();
+       if (month.length < 2) 
+         month = '0' + month;
+     if (day.length < 2) 
+         day = '0' + day;
+       startDate.setHours(0, 0, 0, 0); // Set to the start of the day
+       const startString =year+"-"+month+"-"+day+" 00:00:00 " ;//startDate.toISOString().slice(0, 19).replace('T', ' ');
+       const endDate = new Date(td);
+       endDate.setHours(23, 59, 59, 999); // Set to the end of the day
+       const endString =year+"-"+month+"-"+day+" 23:59:59 "; //endDate.toISOString().slice(0, 19).replace('T', ' ');
+       console.log(startString);
+       console.log(endString);
+       let dt;
+       if(unclaim=="True")
+        {
+          claim=false;
+         dt =await  Ticket.find({DrawTime:  {
+            $gte: startString,
+            $lte: endString
+          },RetailerID: ticketData.RetailerID,claim:claim });
+        }else{
+         dt =await  Ticket.find({DrawTime:  {
+            $gte: startString,
+            $lte: endString
+          },RetailerID: ticketData.RetailerID});
+        }
        
+     console.log(dt);
+     //  Date=2024-06-03&UnclaimOnly=True
 	// 	"TicketID": 4579974,
 	// 	"GameID": 9463412,
 	// 	"SalePoint": 120.00,
@@ -97,7 +133,7 @@ const TicketController = {
        
        
       
-      let dt =await Ticket.find({"RetailerID": ticketData.RetailerID });
+     // let dt =await Ticket.find({"RetailerID": ticketData.RetailerID });
       let data = [];
       let x = [];
       let sdt={}
@@ -121,10 +157,10 @@ const TicketController = {
        console.log(data);
        sdt={};
       }
-      
+        console.log(data);
       res.status(201).json({
         datalist:data,
-        Message: "Bet Accepted.",
+        Message: "Data received",
         Status: true,
         ID: 0
       });
