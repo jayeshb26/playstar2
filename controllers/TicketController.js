@@ -272,7 +272,7 @@ const TicketController = {
     //  console.log( transactions[gameName]);
  let tempPos={};
  let dt =await Ticket.find({GameID: req});
-    if(dt.length > 0) {     
+    if(dt) {     
  for (let res of dt) {
       //  console.log(res.Details);
            for(let i=0; i<res.Details.length;i++)
@@ -382,12 +382,17 @@ tcaa.save(function (err) {
   
     }else{
       let ress={};
-      let result = Math.round(Math.random() * 9);
-      let resultx = Math.round(Math.random() * 9);
+      let result = Math.floor(Math.random() * 10) + 1;
+      let resultx = Math.round(Math.random() * 10)+1;
      
       ress.result=result;
-     
-      ress.x="N";
+        if(resultx==1)
+          {
+            ress.x="N";
+          }else{
+            ress.x= resultx+"X";
+          }
+    
       return ress;
        
     }

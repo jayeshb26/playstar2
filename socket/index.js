@@ -278,9 +278,9 @@ io.on("connection", (socket) => {
 let firstc=0;
 let gamedrtime;
 //let DrawT= getstartgame(18);
-console.log("gAME TIME:",moment().tz("Asia/Calcutta").format('YYYY-MM-DD HH:mm:ss'));
+//console.log("gAME TIME:",moment().tz("Asia/Calcutta").format('YYYY-MM-DD HH:mm:ss'));
 //console.log(DrawT);
- console.log("gAME TIME:",moment().tz("Asia/Calcutta").format('YYYY-MM-DD HH:mm:ss'));
+// console.log("gAME TIME:",moment().tz("Asia/Calcutta").format('YYYY-MM-DD HH:mm:ss'));
 setInterval(async () => {
   // if (new Date().getHours() > 7 && new Date().getHours() < 22) {
 //   if (new Date().getTime() / 1000 > games.playSmart.startTime + 95) {
@@ -315,16 +315,16 @@ getstartgame=async(id)=>{
 
 
 getResult1 = async(a,blur)=>{
-  let result = Math.round(Math.random() * 9);
+  l//et result = Math.round(Math.random() * 9);
   //games["hourse"].startTime = new Date().getTime() / 1000;
   let gamed= await getGameDetail(18);
-  console.log("game detail",gamed.DrawTime);
+ // console.log("game detail",gamed.DrawTime);
   //console.log("game time span",gamed.TimeSpan)
   let cgid= gamed.GameID;
   let reultb=await getGameBetDetail(cgid);
   result=reultb.result;
   x=reultb.x;
-  console.log("FFFFF",await getGameBetDetail(cgid));
+ // console.log("FFFFF",await getGameBetDetail(cgid));
      gamed.GameID=gamed.GameID+1;
     
      var ddate = moment( gamed.DrawTime);
@@ -333,14 +333,14 @@ getResult1 = async(a,blur)=>{
       //ddate=ddate.add(30,'m');
       var ctime=gamed.DrawTime;
      
-      console.log("game draw time 1===",gamedrtime);
+    //  console.log("game draw time 1===",gamedrtime);
     ddate= ddate.add(gamed.TimeSpan, 's').format("YYYY-MM-DD HH:mm:ss ");
     gamedrtime=ddate;
-    console.log("game draw time 2===",gamedrtime);
+  //  console.log("game draw time 2===",gamedrtime);
    
-    console.log("game detail2",ddate);
+ //   console.log("game detail2",ddate);
      gamed.DrawTime=ddate;
-     console.log("game detail3",gamed);
+  //   console.log("game detail3",gamed);
       await updateGameDetail(gamed);
      // await updateGameDetail(result, x, isWinByAdmin[gameName], gameName,games[gameName].adminBalance);
   await addGameResult(result, 18,x,gamed.GameID,  gamed.DrawTime,ctime,cgid);
