@@ -183,22 +183,54 @@ const TicketController = {
       const ticketData = req.body;
       let TicketID=req.query.TicketID;
       let AutoClaim=req.query.AutoClaim;
-      
+       console.log(TicketID);
        console.log(ticketData.RetailerID);
        let userDetails = await User.findOne({"ID": ticketData.RetailerID});
-       let dt =await Ticket.find({TicketID: TicketID});
-    console.log(dt.status);
+       let dt =await Ticket.find({"TicketID": TicketID}).exec();
+       let balance = userDetails.Balance;
+      //  console.log(dt.length);
+      //  console.log(JSON.stringify(dt));
+      //  console.log(dt.length);
+      //  dt=JSON.stringify(dt);
+      //  console.log(dt.length);
+      //  dt= JSON.parse(dt);
+      //  console.log(dt);
+  //  console.log(json(dt));
+    console.log(dt.length);
+            if(dt.length > 0) {
+               console.log(dt.length);
+              console.log(dt); 
+              console.log(dt[0].claim);               
+              if(dt[0].claim==false)
+                {
+   console.log(dt[0].won);
 
-         
-       res.status(201).json({
+                userDetails.Balance=userDetails.Balance+dt[0].won;
+                userDetails.wonPoint=userDetails.wonPoint+dt[0].won;
+                dt.claim=true;
+                dt.status=1;
+                await User.findOneAndUpdate( {"ID":dt[0].RetailerID}, {
+                  $inc: {
+                    Balance: dt[0].won,
+                    wonPoint: dt[0].won,
+                  }, });
+
+
+                  await Ticket.findOneAndUpdate( {"TicketID":TicketID}, {
+                    claim:true,
+                    status:1,
+                  });
+                  
+
+       res.status(200).json({
         RetailerID: ticketData.RetailerID,
-        Balance: userDetails.balance,
-        IsClaimed: dt.claim,
-        GameID: dt.GameID,
-        PlayAmt: dt.TotalAmount,
-        ClaimAmt: dt.won,
-        DrawTime: dt.DrawTime,
-        DrawName: dt.GameName,
+        Balance: userDetails.Balance,
+        IsClaimed: dt[0].claim,
+        GameID: dt[0].GameID,
+        PlayAmt: dt[0].TotalAmount,
+        ClaimAmt: dt[0].won,
+        DrawTime: dt[0].DrawTime,
+        DrawName: dt[0].GameName,
         IsCancelled: false,
         CancelTime: null,
         ClaimTime: null,
@@ -207,6 +239,30 @@ const TicketController = {
          Status: true,
          ID: 0
        });
+                }else{
+
+                
+
+       res.status(200).json({
+        RetailerID: ticketData.RetailerID,
+        Balance: userDetails.Balance,
+        IsClaimed: null,
+        GameID: null,
+        PlayAmt:null,
+        ClaimAmt: null,
+        DrawTime: null,
+        DrawName: null,
+        IsCancelled: false,
+        CancelTime: null,
+        ClaimTime: null,
+        TicketID: TicketID,
+         Message: "Already claimed",
+         Status: true,
+         ID: 0
+       });
+      }
+
+      }
     },
     TicketClaimAll: async (req, res) => {
       const ticketData = req.body;
