@@ -315,7 +315,7 @@ getstartgame=async(id)=>{
 
 
 getResult1 = async(a,blur)=>{
-  l//et result = Math.round(Math.random() * 9);
+  //et result = Math.round(Math.random() * 9);
   //games["hourse"].startTime = new Date().getTime() / 1000;
   let gamed= await getGameDetail(18);
  // console.log("game detail",gamed.DrawTime);
