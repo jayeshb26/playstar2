@@ -6,8 +6,10 @@ const Ticket = require('../models/Ticket');
 const ResultController = {
   getResult: async (req, res) => {
     try {
+      console.log("Game id ======= get result ",req.body.GameID );
       const result = await Result.findOne({ "gameID":req.body.GameID });
       console.log(JSON.stringify(result));
+      console.log("Game id ======= get result ",JSON.stringify(result));
           let userDetails = await User.findOne({"ID":req.body.RetailerID});
           let TicketDetais = await Ticket.findOne({"RetailerID":req.body.RetailerID, "GameID":req.body.GameID});
             console.log(userDetails.Balance);
@@ -30,7 +32,7 @@ const ResultController = {
     dd.WinPoint=TicketDetais.won;
     
   }else{
-    dd.CurrentTime=new Date(); //d1.toISOString();
+   // dd.CurrentTime=new Date(); //d1.toISOString();
              
     //dd.Balance=balance;
     WinPoint=0.0;
