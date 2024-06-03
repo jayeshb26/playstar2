@@ -295,9 +295,10 @@ if (firstc==0){
   }
 }else{
    console.log("dr time",gamedrtime);
-   console.log("======================dr time41===============", moment(gamedrtime).add(10, 'seconds'));
-   
-  if(moment().tz("Asia/Calcutta").format('YYYY-MM-DD HH:mm:ss')> moment(gamedrtime).add(10, 'seconds').format('YYYY-MM-DD HH:mm:ss')){
+   console.log("======================dr time41===============",moment().tz("Asia/Calcutta").format('YYYY-MM-DD HH:mm:ss'));
+   console.log("======================CURRENT===============", moment().tz("Asia/Calcutta").add(10, 'seconds').format('YYYY-MM-DD HH:mm:ss'));
+   console.log("======================BEFORE ===============",  moment(gamedrtime).format('YYYY-MM-DD HH:mm:ss'));
+  if(moment().tz("Asia/Calcutta").add(10, 'seconds').format('YYYY-MM-DD HH:mm:ss')> moment(gamedrtime).format('YYYY-MM-DD HH:mm:ss')){
     console.log("======================dr time===============",gamedrtime);
     await getResult1(11, "playSmart");
   }  

@@ -272,7 +272,8 @@ const TicketController = {
     //  console.log( transactions[gameName]);
  let tempPos={};
  let dt =await Ticket.find({GameID: req});
-    if(dt) {     
+ console.log("Ticket DATA  CURRENT BET :  game ud "+req+"ticket data"+dt+"daata"+dt.length);
+    if(dt.length>0) {     
  for (let res of dt) {
       //  console.log(res.Details);
            for(let i=0; i<res.Details.length;i++)
