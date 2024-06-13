@@ -26,11 +26,11 @@ const UserController = {
         IsActive: user.IsActive,
         MaxBalance: user.MaxBalance,
         Balance: user.Balance,
-        IsPrintTicket:true, //user.IsPrintTicket,
-        IsPrintCancel:true, //user.IsPrintCancel,
-        IsPrintClaim:true,// user.IsPrintClaim,
-        AutoClaim: false, //user.AutoClaim,
-        ShowJackpot: true,//user.ShowJackpot,
+        IsPrintTicket:user.IsPrintTicket,
+        IsPrintCancel:user.IsPrintCancel,
+        IsPrintClaim: user.IsPrintClaim,
+        AutoClaim: user.AutoClaim,
+        ShowJackpot:user.ShowJackpot,
         AuthToken: 1111111111,
         ShowAllDraw: user.ShowAllDraw,
         AutoBet: user.AutoBet,
@@ -69,15 +69,24 @@ const UserController = {
   RetailerSettUpdate: async (req, res) => {
      console.log( req.body.RetailerID);
      console.log( req.query.IsPrintTicket);
-   //  console.log( req);
-     let aa=true
+   
+     let a=req.query.IsPrintTicket.toLowerCase();
+     console.log( a);
+     let b=req.query.PrintCancel.toLowerCase();
+     console.log( b);
+     let c=req.query.PrintClaim.toLowerCase();
+     console.log( c);
+     let d=req.query.AutoClaim.toLowerCase();
+     console.log( d);
+     let e=req.query.AutoBet.toLowerCase();
+     console.log( e);
     await User.findOneAndUpdate({"ID":req.body.RetailerID}, {
 
-      IsPrintTicket:!!req.query.IsPrintTicket.toLowerCase(),
-      PrintCancel:!!req.query.PrintCancel.toLowerCase(),
-      PrintClaim:!!req.query.PrintClaim.toLowerCase(),
-      AutoClaim:!!req.query.AutoClaim.toLowerCase(),
-      AutoBet:!!req.query.AutoBet.toLowerCase(),
+      IsPrintTicket:a,
+      PrintCancel:b,
+      PrintClaim:c,
+      AutoClaim:d,
+      AutoBet:e,
     
     }); 
    

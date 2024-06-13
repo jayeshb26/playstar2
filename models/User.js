@@ -138,32 +138,32 @@ const UserSchema = new mongoose.Schema(
     MaxBalance: Number,
     Balance: Number,
     IsPrintTicket: {
-      type: Boolean,
-      default: true
+      type: String,
+      default: "true"
     },
     PrintCancel: {
-      type: Boolean,
-      default: true
+      type: String,
+      default: "true"
     },
     PrintClaim: {
-      type: Boolean,
-      default: true
+      type: String,
+      default: "true"
     },
     AutoClaim: {
-      type: Boolean,
-      default: true
+     type: String,
+      default: "true"
     },
     ShowJackpot: {
-      type: Boolean,
-      default: true
+     type: String,
+      default: "true"
     },
     ShowAllDraw: {
       type: Boolean,
       default: false
     },
     AutoBet: {
-      type: Boolean,
-      default: false
+     type: String,
+      default: "true"
     },
     Message: String,
     Status: {
