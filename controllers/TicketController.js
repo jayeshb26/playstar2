@@ -344,8 +344,8 @@ const TicketController = {
    let cntwin=0;
    let cntclaim=0;
    let cntend=0;
-   let multiplyer = 10;
-       multiplyer = 10;
+   let multiplyer = 11;
+       multiplyer = 11;
        let gposition={};
        let gtransactions={};
        function  resultcallback(position,tcid)
@@ -476,7 +476,7 @@ tcaa.save(function (err) {
     }else{
       let ress={};
       let result = Math.floor(Math.random() * 10) + 1;
-      let resultx = Math.round(Math.random() * 10)+1;
+      let resultx =1; //Math.round(Math.random() * 10)+1;
      
       ress.result=result;
         if(resultx==1)

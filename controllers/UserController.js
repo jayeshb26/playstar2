@@ -69,15 +69,15 @@ const UserController = {
   RetailerSettUpdate: async (req, res) => {
      console.log( req.body.RetailerID);
      console.log( req.query.IsPrintTicket);
-     console.log( req);
+     //console.log( req);
      
     await User.findOneAndUpdate({"ID":req.body.RetailerID}, {
 
-      IsPrintTicket:!!req.query.IsPrintTicket,
-      PrintCancel:!!req.query.PrintCancel,
-      PrintClaim:!!req.query.PrintClaim,
-      AutoClaim:!!req.query.AutoClaim,
-      AutoBet:!!req.query.AutoBet,
+      IsPrintTicket:req.query.IsPrintTicket,
+      PrintCancel:req.query.PrintCancel,
+      PrintClaim:req.query.PrintClaim,
+      AutoClaim:req.query.AutoClaim,
+      AutoBet:req.query.AutoBet,
     
     }); 
    
