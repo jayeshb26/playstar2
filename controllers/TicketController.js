@@ -313,7 +313,7 @@ const TicketController = {
          
        res.status(201).json({
         RetailerID: ticketData.RetailerID,
-        Balance: userDetails.balance,
+        Balance: userDetails.Balance,
         IsClaimed: false,
         GameID:0,
         PlayAmt:0.0,
