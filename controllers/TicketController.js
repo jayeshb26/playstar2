@@ -532,7 +532,7 @@ tcaa.save(function (err) {
     const ticketData = req.body;
     let ToDate=req.query.Date;
    // let FromDate=req.query.FromDate;
-     console.log(ticketData.RetailerID);
+     console.log(req.body);
      //let fd=new Date(FromDate);
     let td= new Date(ToDate);
     console.log(td);
