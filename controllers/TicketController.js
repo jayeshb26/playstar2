@@ -510,7 +510,7 @@ tcaa.save(function (err) {
        const endDate = new Date(td);
        endDate.setHours(23, 59, 59, 999); // Set to the end of the day
        const endString =year+"-"+month+"-"+day+" 23:59:59 "; //endDate.toISOString().slice(0, 19).replace('T', ' ');
-       console.log(startString);
+      // console.log(startString);
        console.log(endString);
 
 
