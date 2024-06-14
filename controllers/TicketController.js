@@ -219,7 +219,7 @@ const TicketController = {
          cntsale=cntsale+res.TotalAmount;
          console.log(res.claim);
          console.log(res.won);
-if(res.cliam){
+if(res.claim==true){
          cntclaim=cntclaim+res.won;
 }
          cntwin=cntwin+res.won;
