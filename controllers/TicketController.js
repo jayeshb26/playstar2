@@ -197,7 +197,7 @@ const TicketController = {
       console.log(startString);
       console.log(endString);
      
-       let dt =await Ticket.find({DrDate: {
+       let dt =await Ticket.find({DrawTime: {
         $gte: startString ,
         $lt:endString   
     },"RetailerID" :ticketData.RetailerID});
