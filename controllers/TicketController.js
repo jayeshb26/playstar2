@@ -158,7 +158,7 @@ const TicketController = {
        sdt={};
       }
         console.log(data);
-      res.status(201).json({
+      res.status(200).json({
         datalist:data,
         Message: "Data received",
         Status: true,
@@ -498,7 +498,25 @@ tcaa.save(function (err) {
      //let fd=new Date(FromDate);
     let td= new Date(ToDate);
     console.log(td);
-     let dt =await  PointLogList.find({DrDate: td});
+  td= new Date(td);
+       console.log(td);
+       const startDate = new Date(td);
+     let   month = '' + (startDate.getMonth() + 1);
+       let day = '' + startDate.getDate();
+       let year = startDate.getFullYear();
+      
+       startDate.setHours(0, 0, 0, 0); // Set to the start of the day
+      // const startString =year+"-"+month+"-"+day+" 00:00:00 " ;//startDate.toISOString().slice(0, 19).replace('T', ' ');
+       const endDate = new Date(td);
+       endDate.setHours(23, 59, 59, 999); // Set to the end of the day
+       const endString =year+"-"+month+"-"+day+" 23:59:59 "; //endDate.toISOString().slice(0, 19).replace('T', ' ');
+       console.log(startString);
+       console.log(endString);
+
+
+       const startString =month+"-"+day+"-"+year;
+console.log(startString);;
+     let dt =await  PointLogList.find({DrDate: startString});
   console.log(dt);
      let data = [];
      let x = [];
