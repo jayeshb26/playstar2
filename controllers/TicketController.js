@@ -213,11 +213,13 @@ const TicketController = {
    let cntend=0;
 
        for (let res of dt) {
-        console.log(dt);
+       // console.log(dt);
         sdt.TicketID=res.TicketID;
          sdt.GameID=res.GameID;
          cntsale=cntsale+res.TotalAmount;
-if(res.cliam==true){
+         console.log(res.claim);
+         console.log(res.won);
+if(res.cliam){
          cntclaim=cntclaim+res.won;
 }
          cntwin=cntwin+res.won;
