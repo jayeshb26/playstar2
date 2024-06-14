@@ -173,9 +173,33 @@ const TicketController = {
        let fd=new Date(FromDate);
       let td= new Date(ToDate);
       console.log(td,fd);
+      console.log(td);
+      const startDate = new Date(fd);
+    let   month = '' + (startDate.getMonth() + 1);
+      let day = '' + startDate.getDate();
+      let year = startDate.getFullYear();
+      if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+      startDate.setHours(0, 0, 0, 0); // Set to the start of the day
+      const startString =year+"-"+month+"-"+day+" 00:00:00 " ;//startDate.toISOString().slice(0, 19).replace('T', ' ');
+      const endDate = new Date(fd);
+      let   emonth = '' + (endDate.getMonth() + 1);
+      let eday = '' + endDate.getDate();
+      let eyear = endDate.getFullYear();
+      if (emonth.length < 2) 
+        emonth = '0' + emonth;
+    if (eday.length < 2) 
+        eday = '0' + eday;
+      endDate.setHours(23, 59, 59, 999); // Set to the end of the day
+      const endString =eyear+"-"+emonth+"-"+eday+" 23:59:59 "; //endDate.toISOString().slice(0, 19).replace('T', ' ');
+      console.log(startString);
+      console.log(endString);
+     
        let dt =await Ticket.find({DrDate: {
-        $gte: FromDate ,
-        $lt:ToDate   
+        $gte: startString ,
+        $lt:endString   
     },"RetailerID" :ticketData.RetailerID});
     console.log(dt);
        let data = [];
@@ -193,16 +217,18 @@ const TicketController = {
         sdt.TicketID=res.TicketID;
          sdt.GameID=res.GameID;
          cntsale=cntsale+res.TotalAmount;
+if(res.cliam==true){
          cntclaim=cntclaim+res.won;
-         cntwin=cntclaim+res.won;
+}
+         cntwin=cntwin+res.won;
     
        }
        sdt.Date= new Date();
        sdt.SalePoint= cntsale,
        sdt.WinPoint= cntwin,
        sdt.ClaimPoint= cntclaim,
-       sdt.EndsPoint= cntsale,
-       sdt.Commi= 0.0,
+       sdt.EndsPoint= cntsale-cntclaim,
+       sdt.Commi= (cntsale*5)/100,
        sdt.NTP= cntsale-cntwin,
        sdt.ClaimCommi= 0.0,
        sdt.BONUS= 0.0
