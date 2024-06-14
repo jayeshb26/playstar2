@@ -236,11 +236,12 @@ const TicketController = {
             if(dt.length > 0) {
                console.log(dt.length);
               console.log(dt); 
-              console.log(dt[0].claim);               
+              console.log(dt[0].claim); 
+              if(dt[0].status==0)  {            
               if(dt[0].claim==false)
                 {
    console.log(dt[0].won);
-
+               if(dt[0].won>0){
                 userDetails.Balance=userDetails.Balance+dt[0].won;
                 userDetails.wonPoint=userDetails.wonPoint+dt[0].won;
                 dt.claim=true;
@@ -271,10 +272,29 @@ const TicketController = {
         CancelTime: null,
         ClaimTime: null,
         TicketID: TicketID,
-         Message: "Data received",
+         Message: "Congratulation You Won   "+dt[0].won,
          Status: true,
          ID: 0
        });
+      }else{
+        res.status(200).json({
+          RetailerID: ticketData.RetailerID,
+          Balance: userDetails.Balance,
+          IsClaimed: null,
+          GameID: null,
+          PlayAmt:null,
+          ClaimAmt: null,
+          DrawTime: null,
+          DrawName: null,
+          IsCancelled: false,
+          CancelTime: null,
+          ClaimTime: null,
+          TicketID: TicketID,
+           Message: "No Win Better Luck Next Time",
+           Status: true,
+           ID: 0
+         }); 
+      }
                 }else{
 
                 
@@ -297,7 +317,25 @@ const TicketController = {
          ID: 0
        });
       }
-
+    }else{
+      res.status(200).json({
+        RetailerID: ticketData.RetailerID,
+        Balance: userDetails.Balance,
+        IsClaimed: null,
+        GameID: null,
+        PlayAmt:null,
+        ClaimAmt: null,
+        DrawTime: null,
+        DrawName: null,
+        IsCancelled: false,
+        CancelTime: null,
+        ClaimTime: null,
+        TicketID: TicketID,
+         Message: "Draw Not Completed",
+         Status: true,
+         ID: 0
+       }); 
+    }
       }
     },
     TicketClaimAll: async (req, res) => {
