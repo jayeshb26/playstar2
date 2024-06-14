@@ -554,7 +554,7 @@ tcaa.save(function (err) {
 
        const startString =month+"-"+day+"-"+year;
 console.log(startString);;
-     let dt =await  PointLogList.find({DrDate: startString});
+     let dt =await  PointLogList.find({DrDate: startString,RetailerID:ticketData.RetailerID});
   console.log(dt);
      let data = [];
      let x = [];
