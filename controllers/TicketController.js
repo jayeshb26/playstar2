@@ -176,7 +176,7 @@ const TicketController = {
        let dt =await Ticket.find({DrDate: {
         $gte: FromDate ,
         $lt:ToDate   
-    }});
+    },"RetailerID" :ticketData.RetailerID});
     console.log(dt);
        let data = [];
        let x = [];
@@ -207,7 +207,7 @@ const TicketController = {
        sdt.ClaimCommi= 0.0,
        sdt.BONUS= 0.0
     data.push(sdt);
-       
+       console.log(data);
        res.status(201).json({
          datalist:data,
          Message: "Data received",
@@ -258,6 +258,21 @@ const TicketController = {
                     status:1,
                   });
                   
+
+                  let pointl={}
+                  pointl.GameID=dt[0].GameID,
+                  pointl.RetailerID=ticketData.RetailerID;
+                  pointl.TicketID= TicketID;
+                  pointl.UserCode=userDetails.Code;
+                  pointl.GameName=  "Lucky House";
+                  pointl.PrevBal=userDetails.Balance-dt[0].won;
+                  pointl.AddPoint=dt[0].won;
+                  pointl.MinusPoint=0.0;
+                  pointl.NewBal= Number(userDetails.Balance);
+                  pointl.DnT=dt[0].DrawTime;
+                  pointl.TicketAdjType=" Claim Ticket"; 
+                    console.log(pointl);
+                     PointLogList.create(pointl)
 
        res.status(200).json({
         RetailerID: ticketData.RetailerID,
