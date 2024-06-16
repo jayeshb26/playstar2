@@ -500,16 +500,36 @@ if(res.claim==true){
        let resultSet = getValuesLessThanOrEqualToBalance(gposition, newadminbal);
       console.log(resultSet);
 
-       function getRandomValueFromResultSet(resultSet) {
-  const keys = Object.keys(resultSet);
-  if (keys.length === 0) {
-    return null; // Or handle the case when resultSet is empty
+//        function getRandomValueFromResultSet(resultSet) {
+//   const keys = Object.keys(resultSet);
+//   if (keys.length === 0) {
+//     return null; // Or handle the case when resultSet is empty
+//   }
+//   const randomIndex = Math.floor(Math.random() * keys.length);
+//   const randomKey = keys[randomIndex];
+//   return { [randomKey]: resultSet[randomKey] };
+// }
+
+function getKeyValuePair(resultSet, type) {
+  let filteredSet = Object.entries(resultSet).filter(([key, value]) => value !== 0);
+  
+  if (filteredSet.length === 0) return null;
+
+  filteredSet.sort((a, b) => a[1] - b[1]);
+
+  switch (type) {
+      case 'min':
+          return { [filteredSet[0][0]]: filteredSet[0][1] };
+      case 'max':
+          return { [filteredSet[filteredSet.length - 1][0]]: filteredSet[filteredSet.length - 1][1] };
+      case 'median':
+          let middleIndex = Math.floor(filteredSet.length / 2);
+          return { [filteredSet[middleIndex][0]]: filteredSet[middleIndex][1] };
+      default:
+          return null;
   }
-  const randomIndex = Math.floor(Math.random() * keys.length);
-  const randomKey = keys[randomIndex];
-  return { [randomKey]: resultSet[randomKey] };
 }
-let randomValue = getRandomValueFromResultSet(resultSet);
+let randomValue = getKeyValuePair(resultSet,admin.gameMode);
 console.log(randomValue);
 console.log(Object.keys(randomValue)[0]);
 
