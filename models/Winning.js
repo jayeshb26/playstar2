@@ -8,6 +8,14 @@ const WinningSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    totalin: {
+        type: Number,
+        default: 0
+    },
+    totalout: {
+        type: Number,
+        default: 0
+    },
     
     gameMode: {
         type: String,

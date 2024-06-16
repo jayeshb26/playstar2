@@ -542,7 +542,7 @@ admin.balance= newadminbal-randomValue[result];
 admin.totalin=admin.totalin+tottalbet;
 admin.totalout=admin.totalout+randomValue[result];
 
-console.log("Product falssssssssss", admin.balance);
+console.log(" admin balace", admin.balance,"totalin",admin.totalin,"totalout",admin.totalout);
 admin.save(function (err) {
  if(err) {
      console.error('ERROR!');
