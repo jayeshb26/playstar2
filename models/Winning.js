@@ -4,7 +4,12 @@ const WinningSchema = new mongoose.Schema({
     percent: {
         type: Number,
         default: 0
-    },  gameMode: {
+    },  balance: {
+        type: Number,
+        default: 0
+    },
+    
+    gameMode: {
         type: String,
       
     }

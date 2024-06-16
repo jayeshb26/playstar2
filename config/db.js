@@ -6,6 +6,7 @@ const connectDB = async () => {
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false,
+    serverSelectionTimeoutMS: 100000,
     
   });
   console.log(

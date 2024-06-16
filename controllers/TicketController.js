@@ -2,6 +2,7 @@ const Ticket = require("../models/Ticket")
 const User = require("../models/User");
 const GameDetails = require("../models/GameDetails");
 const PointLogList = require("../models/PointLogList");
+const Winning = require("../models/Winning");
 const Resultmodel = require("../models/results");
 const immutable = require("object-path-immutable");
 
@@ -427,7 +428,8 @@ if(res.claim==true){
    let cntend=0;
    let multiplyer = 11;
        multiplyer = 11;
-       let gposition={};
+       let tottalbet=0;
+       let gposition={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,12:0};
        let gtransactions={};
        function  resultcallback(position,tcid)
        {
@@ -435,17 +437,42 @@ if(res.claim==true){
        gposition = immutable.update(gposition, [pos], (v) =>
          v ? v + position[pos] * multiplyer : position[pos] * multiplyer
        );
+        tottalbet=tottalbet+ position[pos];
        gtransactions = immutable.update(gtransactions, [pos, tcid], (v) =>
          v ? v + position[pos] * multiplyer : position[pos] * multiplyer
        );
      }
     }
-
+ 
     //  console.log( games[gameName].position);
     //  console.log( transactions[gameName]);
+    function getValuesLessThanOrEqualToBalance(data, balance) {
+      let result = {};
+      let minKey = null;
+      let minValue = Infinity;
+    
+      for (let [key, value] of Object.entries(data)) {
+        if (value <= balance) {
+          result[key] = value;
+        }
+    
+        if (value < minValue) {
+          minValue = value;
+          minKey = key;
+        }
+      }
+    
+      if (Object.keys(result).length === 0 && minKey !== null) {
+        result[minKey] = minValue;
+      }
+    
+      return result;
+    }
  let tempPos={};
  let dt =await Ticket.find({GameID: req});
- console.log("Ticket DATA  CURRENT BET :  game ud "+req+"ticket data"+dt+"daata"+dt.length);
+ let admin =await Winning.findOne({});
+ console.log("Ticket DATA  CURRENT BET :  game ud "+req+"ticket data"+dt+"daata"+dt.length+admin.percent+admin+admin.balance);
+ 
     if(dt.length>0) {     
  for (let res of dt) {
       //  console.log(res.Details);
@@ -465,11 +492,47 @@ if(res.claim==true){
          resultcallback(tempPos,res.TicketID);
     
        }
-       let result = Math.floor(Math.random() * 10) + 1;
+
+
+       console.log("total bet",tottalbet,"adminpercent",admin.percent,"toallpercent",(tottalbet*admin.percent)/100,"ff",admin.balance,"toallnewadmin balcne",admin.balance+((tottalbet*admin.percent)/100));
+      
+     let  newadminbal=admin.balance+((tottalbet*admin.percent)/100);
+       let resultSet = getValuesLessThanOrEqualToBalance(gposition, newadminbal);
+      console.log(resultSet);
+
+       function getRandomValueFromResultSet(resultSet) {
+  const keys = Object.keys(resultSet);
+  if (keys.length === 0) {
+    return null; // Or handle the case when resultSet is empty
+  }
+  const randomIndex = Math.floor(Math.random() * keys.length);
+  const randomKey = keys[randomIndex];
+  return { [randomKey]: resultSet[randomKey] };
+}
+let randomValue = getRandomValueFromResultSet(resultSet);
+console.log(randomValue);
+console.log(Object.keys(randomValue)[0]);
+
+let result = Object.keys(randomValue)[0];//Math.floor(Math.random() * 10) + 1;
+
+console.log("balance winnig ",randomValue[result]);
+
+
+admin.balance= newadminbal-randomValue[result];
+
+console.log("Product falssssssssss", admin.balance);
+admin.save(function (err) {
+ if(err) {
+     console.error('ERROR!');
+ }
+}  );
        console.log("===game================================ ",result);
       
+       
     console.log(gposition);
     console.log(gtransactions[result]);
+
+    if(randomValue[result]!=0){
     for (const transId in gtransactions[result]) {
          gtransactions[result][transId] =
           gtransactions[result][transId] * 1;
@@ -549,6 +612,7 @@ tcaa.save(function (err) {
 }  );
 }
     }
+  }
     let ress={};
     ress.result=result;
     ress.x="N";
