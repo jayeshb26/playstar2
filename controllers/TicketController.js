@@ -500,18 +500,10 @@ if(res.claim==true){
        let resultSet = getValuesLessThanOrEqualToBalance(gposition, newadminbal);
       console.log(resultSet);
 
-//        function getRandomValueFromResultSet(resultSet) {
-//   const keys = Object.keys(resultSet);
-//   if (keys.length === 0) {
-//     return null; // Or handle the case when resultSet is empty
-//   }
-//   const randomIndex = Math.floor(Math.random() * keys.length);
-//   const randomKey = keys[randomIndex];
-//   return { [randomKey]: resultSet[randomKey] };
-// }
+
 
 function getKeyValuePair(resultSet, type) {
-  let filteredSet = Object.entries(resultSet).filter(([key, value]) => value !== 0);
+  let filteredSet = Object.entries(resultSet);
   
   if (filteredSet.length === 0) return null;
 
@@ -536,7 +528,7 @@ console.log(Object.keys(randomValue)[0]);
 let result = Object.keys(randomValue)[0];//Math.floor(Math.random() * 10) + 1;
 
 console.log("balance winnig ",randomValue[result]);
-
+  
 
 admin.balance= newadminbal-randomValue[result];
 admin.totalin=admin.totalin+tottalbet;
