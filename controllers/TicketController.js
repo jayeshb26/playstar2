@@ -226,13 +226,14 @@ if(res.claim==true){
          cntwin=cntwin+res.won;
     
        }
+       let cc=(cntsale*5)/100;
        sdt.Date= new Date();
        sdt.SalePoint= cntsale,
        sdt.WinPoint= cntwin,
        sdt.ClaimPoint= cntclaim,
        sdt.EndsPoint= cntsale-cntclaim,
-       sdt.Commi= (cntsale*5)/100,
-       sdt.NTP= cntsale-cntwin,
+       sdt.Commi= cc,
+       sdt.NTP= cntsale-cntwin-cc,
        sdt.ClaimCommi= 0.0,
        sdt.BONUS= 0.0
     data.push(sdt);
