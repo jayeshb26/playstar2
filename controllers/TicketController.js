@@ -233,7 +233,7 @@ if(res.claim==true){
        sdt.ClaimPoint= cntclaim,
        sdt.EndsPoint= cntsale-cntclaim,
        sdt.Commi= cc,
-       sdt.NTP= cntsale-cntwin-cc,
+       sdt.NTP= cntsale-cntclaim-cc,
        sdt.ClaimCommi= 0.0,
        sdt.BONUS= 0.0
     data.push(sdt);
