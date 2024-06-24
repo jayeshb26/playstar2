@@ -119,9 +119,9 @@ const TicketController = {
         //   },RetailerID: ticketData.RetailerID});
         console.log("treid",ticketData.RetailerID);
          // dt =await  Ticket.find({RetailerID: ticketData.RetailerID});
-         dt=Ticket.find({ RetailerID: ticketData.RetailerID }) .limit(20);
+         dt=Ticket.find({ RetailerID: ticketData.RetailerID }).limit(20);
   
-          console.log("treid",dt);
+        //  console.log("treid",dt);
         }
        
      console.log(dt);
