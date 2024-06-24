@@ -109,15 +109,18 @@ const TicketController = {
           claim=false;
          dt =await  Ticket.find({DrawTime:  {
             $gte: startString,
+          
             $lte: endString
           },RetailerID: ticketData.RetailerID,claim:claim });
         }else{
-         dt =await  Ticket.find({DrawTime:  {
-            $gte: startString,
-            $lte: endString
-          },RetailerID: ticketData.RetailerID});
+        //  dt =await  Ticket.find({DrawTime:  {
+        //     $gte: startString,
+        //     $lte: endString
+        //   },RetailerID: ticketData.RetailerID});
+          dt =await  Ticket.find({RetailerID: ticketData.RetailerID});
         }
        
+     console.log(dt);
      console.log(dt);
      //  Date=2024-06-03&UnclaimOnly=True
 	// 	"TicketID": 4579974,
