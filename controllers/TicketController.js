@@ -118,7 +118,16 @@ const TicketController = {
         //     $lte: endString
         //   },RetailerID: ticketData.RetailerID});
         console.log("treid",ticketData.RetailerID);
-          dt =await  Ticket.find({RetailerID: ticketData.RetailerID});
+         // dt =await  Ticket.find({RetailerID: ticketData.RetailerID});
+         dt=Ticket.find({ RetailerID: ticketData.RetailerID })
+  .limit(100)
+  .exec((err, tickets) => {
+    if (err) {
+      console.error('Error retrieving tickets:', err);
+    } else {
+      console.log('Retrieved tickets:', tickets);
+    }
+  });
           console.log("treid",dt);
         }
        
