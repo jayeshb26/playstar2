@@ -117,7 +117,9 @@ const TicketController = {
         //     $gte: startString,
         //     $lte: endString
         //   },RetailerID: ticketData.RetailerID});
+        console.log("treid",ticketData.RetailerID);
           dt =await  Ticket.find({RetailerID: ticketData.RetailerID});
+          console.log("treid",dt);
         }
        
      console.log(dt);
