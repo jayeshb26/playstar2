@@ -113,21 +113,13 @@ const TicketController = {
             $lte: endString
           },RetailerID: ticketData.RetailerID,claim:claim });
         }else{
-        //  dt =await  Ticket.find({DrawTime:  {
-        //     $gte: startString,
-        //     $lte: endString
-        //   },RetailerID: ticketData.RetailerID});
-        console.log("treid",ticketData.RetailerID);
-         // dt =await  Ticket.find({RetailerID: ticketData.RetailerID});
-         dt= dt = await Ticket.find({ RetailerID: ticketData.RetailerID })
-         .sort({ createdDate: -1 }) // Sorting in descending order by createdAt
-         .limit(10) // Limiting to 15 documents
-         .exec();
-  
-        //  console.log("treid",dt);
+         dt =await  Ticket.find({DrawTime:  {
+            $gte: startString,
+            $lte: endString
+          },RetailerID: ticketData.RetailerID});
+       //   dt =await  Ticket.find({RetailerID: ticketData.RetailerID});
         }
        
-     console.log(dt);
      console.log(dt);
      //  Date=2024-06-03&UnclaimOnly=True
 	// 	"TicketID": 4579974,
