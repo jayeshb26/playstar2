@@ -111,7 +111,7 @@ const TicketController = {
             $gte: startString,
           
             $lte: endString
-          },RetailerID: ticketData.RetailerID,claim:claim });
+          },RetailerID: ticketData.RetailerID,claim:claim,IsCancelled:false });
         }else{
          dt =await  Ticket.find({DrawTime:  {
             $gte: startString,
@@ -338,7 +338,7 @@ if(res.claim==true){
           ClaimTime: null,
           TicketID: TicketID,
            Message: "No Win Better Luck Next Time",
-           Status: true,
+           Status: false,
            ID: 0
          }); 
       }
@@ -360,7 +360,7 @@ if(res.claim==true){
         ClaimTime: null,
         TicketID: TicketID,
          Message: "Already claimed",
-         Status: true,
+         Status: false,
          ID: 0
        });
       }
@@ -379,7 +379,7 @@ if(res.claim==true){
         ClaimTime: null,
         TicketID: TicketID,
          Message: "Draw Not Completed",
-         Status: true,
+         Status: false,
          ID: 0
        }); 
     }
