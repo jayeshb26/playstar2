@@ -63,6 +63,7 @@ router.get('/GetGameDetailsNew', gameDetailsController.getGameDetails);
  router.get('/PointLogList', TicketController.PointLogList);
  router.get('/RetailerTicketDetails', TicketController.RetailerTicketDetails);
  router.get('/ResultList', TicketController.ResultList);
+ router.get('/TicketCancel', TicketController.TicketCancel);
 // http://glxapi.playlucky.net/api/Client/ResultList?ResultDate=2024-06-02
 router.get('/RetailerLogout', UserController.logout);
 //RetailerSettUpdate

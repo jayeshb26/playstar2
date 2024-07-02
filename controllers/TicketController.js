@@ -777,8 +777,143 @@ console.log(startString);;
        Status: true,
        ID: 0
      });
-  }
+  },
+  TicketCancel: async (req, res) => {
+    const ticketData = req.body;
+    let TicketID=req.query.TicketID;
+  
+     console.log(TicketID);
+     console.log(ticketData.RetailerID);
+     let gd = await GameDetails.findOne({"_id":"663e5bba1f221b683be33ba1"});
+     console.log(gd.GameID);
+     let userDetails = await User.findOne({"ID": ticketData.RetailerID});
+     let dt =await Ticket.findOne({"TicketID": TicketID});
+     let balance = userDetails.Balance;
+     console.log(dt.GameID);
+      if(gd.GameID==dt.GameID)
+        {
 
+          console.log( userDetails.Balance);
+          console.log(dt.TotalAmount);
+
+
+          let pointl={}
+                          pointl.GameID=dt.GameID,
+                          pointl.RetailerID=ticketData.RetailerID;
+                          pointl.TicketID= TicketID;
+                          pointl.UserCode=userDetails.Code;
+                          pointl.GameName=  "Lucky House";
+                          pointl.PrevBal=userDetails.Balance;
+                          pointl.AddPoint=dt.TotalAmount;
+                          pointl.MinusPoint=0.0;
+                          pointl.NewBal= Number(userDetails.Balance+dt.TotalAmount);
+                          pointl.DnT=dt.DrawTime;
+                          pointl.TicketAdjType="Ticket cancelled"; 
+                            console.log(pointl);
+                             PointLogList.create(pointl);
+                             await User.findOneAndUpdate( {"ID":dt.RetailerID}, {
+                                              $inc: {
+                                                Balance: dt.TotalAmount,
+                                                playPoint: -dt.TotalAmount,
+                                              }, });
+                                              await Ticket.findOneAndUpdate( {"TicketID":TicketID}, {
+                                                                  claim:true,
+                                                                  status:1,
+                                                                  IsCancelled:true,
+                                                                });
+
+
+    //  console.log(dt.length);
+    //  console.log(JSON.stringify(dt));
+    //  console.log(dt.length);
+    //  dt=JSON.stringify(dt);
+    //  console.log(dt.length);
+    //  dt= JSON.parse(dt);
+    //  console.log(dt);
+//  console.log(json(dt));
+//   console.log(dt.length);
+//           if(dt.length > 0) {
+//              console.log(dt.length);
+//             console.log(dt); 
+//             console.log(dt[0].claim); 
+//             if(dt[0].status==0)  {            
+//             if(dt[0].claim==false)
+//               {
+//  console.log(dt[0].won);
+//              if(dt[0].won>0){
+//               userDetails.Balance=userDetails.Balance+dt[0].won;
+//               userDetails.wonPoint=userDetails.wonPoint+dt[0].won;
+//               dt.claim=true;
+//               dt.status=1;
+//               await User.findOneAndUpdate( {"ID":dt[0].RetailerID}, {
+//                 $inc: {
+//                   Balance: dt[0].won,
+//                   wonPoint: dt[0].won,
+//                 }, });
+
+
+//                 await Ticket.findOneAndUpdate( {"TicketID":TicketID}, {
+//                   claim:true,
+//                   status:1,
+//                 });
+                
+
+//                 let pointl={}
+//                 pointl.GameID=dt[0].GameID,
+//                 pointl.RetailerID=ticketData.RetailerID;
+//                 pointl.TicketID= TicketID;
+//                 pointl.UserCode=userDetails.Code;
+//                 pointl.GameName=  "Lucky House";
+//                 pointl.PrevBal=userDetails.Balance-dt[0].won;
+//                 pointl.AddPoint=dt[0].won;
+//                 pointl.MinusPoint=0.0;
+//                 pointl.NewBal= Number(userDetails.Balance);
+//                 pointl.DnT=dt[0].DrawTime;
+//                 pointl.TicketAdjType=" Claim Ticket"; 
+//                   console.log(pointl);
+//                    PointLogList.create(pointl)
+
+     res.status(200).json({
+      RetailerID: ticketData.RetailerID,
+      Balance: userDetails.Balance+dt.TotalAmount,
+      IsClaimed: dt.claim,
+      GameID: dt.GameID,
+      PlayAmt: 0.0,
+      ClaimAmt: 0.0,
+      DrawTime: dt.DrawTime,
+      DrawName: dt.GameName,
+      IsCancelled: true,
+      CancelTime: null,
+      ClaimTime: null,
+      TicketID: TicketID,
+       Message: " Your  Ticket Canceled    ",
+       Status: true,
+       ID: 0
+     });
+    }else{
+      res.status(200).json({
+        RetailerID: 0,
+        Balance:0.0,
+        IsClaimed: false,
+        GameID: 0,
+        PlayAmt:0.0,
+        ClaimAmt: 0.0,
+        DrawTime: null,
+        DrawName: null,
+        IsCancelled: false,
+        CancelTime: null,
+        ClaimTime: null,
+        TicketID: 0,
+         Message: "Cannot cancel. Result already declared.",
+         Status: false,
+         ID: 0
+       }); 
+    
+    }
+           
+ 
+  },
+ // http://glxapi.playlucky.net/api/Client/TicketCancel?TicketID=4545105
 };
 
   module.exports = TicketController;
